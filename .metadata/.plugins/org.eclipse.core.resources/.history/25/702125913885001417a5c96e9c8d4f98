@@ -1,0 +1,22 @@
+package graph;
+
+public class DepthFirstSearch {
+	private boolean[] marked;
+	private int[] edgeTo;
+	private int s;				//source vertex of given graph
+	
+	//constructor
+	public DepthFirstSearch(Graph G, int s){
+		dfs(G,s);
+	}
+	
+	private void dfs(Graph G,int v){
+		marked[v]=true;
+		for(int w: G.adj(v)){
+			if(!marked[w]){
+				dfs(G,w);
+				edgeTo[w]=v;
+			}
+		}
+	}
+}

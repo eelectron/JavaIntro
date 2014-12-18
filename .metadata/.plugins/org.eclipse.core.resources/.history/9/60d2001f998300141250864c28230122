@@ -1,0 +1,38 @@
+package bst;
+
+public class BST23Tree {
+	Node root;
+	
+	//Node-contains link atmost to 3 other node
+	private class Node{
+		private Key k1,k2;
+		private Value v1,v2;
+		private Node left,middle,right;
+		public Node(Key k, Value v){
+			k1=k; v1=v;
+		}
+	}
+	
+	//Inserts a key
+	public void put(Key k, Value v){
+		if (root == null) {
+			root=new Node(k,v);
+		}else if(root.k2 == null  ){
+			if((k.compareTo(root.k1) > 0)){
+				root.k2=k;
+				root.v2 = v;
+			}else{
+				//Copy k1,v1 in second k2,v2 and set new k,v in k1,v1
+				root.k2 = root.k1;
+				root.v2=root.v1;
+				
+				root.k1=k;
+				root.v1=v;
+			}
+		}else{
+			int cmp1 = k.compareTo(root.k1);
+			int cmp2 = k.compareTo(root.k2);
+			if(cmp1 > 0 && cmp2<0)
+		}
+	}
+}

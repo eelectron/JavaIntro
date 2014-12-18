@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;marked&apos; in &apos;graph.BreadthFirstPath&apos; to &apos;isVisited&apos;&#x0A;- Original project: &apos;Algorithms-II&apos;&#x0A;- Original element: &apos;graph.BreadthFirstPath.marked&apos;&#x0A;- Renamed element: &apos;graph.BreadthFirstPath.isVisited&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;marked&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;graph{BreadthFirstPath.java[BreadthFirstPath^marked" name="isVisited" references="true" setter="false" stamp="1418836172319" textual="false" version="1.0"/>
+</session>

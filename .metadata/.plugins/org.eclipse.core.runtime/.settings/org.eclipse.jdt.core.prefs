@@ -1,0 +1,20 @@
+eclipse.preferences.version=1
+org.eclipse.jdt.core.codeComplete.argumentPrefixes=
+org.eclipse.jdt.core.codeComplete.argumentSuffixes=
+org.eclipse.jdt.core.codeComplete.fieldPrefixes=
+org.eclipse.jdt.core.codeComplete.fieldSuffixes=
+org.eclipse.jdt.core.codeComplete.localPrefixes=
+org.eclipse.jdt.core.codeComplete.localSuffixes=
+org.eclipse.jdt.core.codeComplete.staticFieldPrefixes=
+org.eclipse.jdt.core.codeComplete.staticFieldSuffixes=
+org.eclipse.jdt.core.codeComplete.staticFinalFieldPrefixes=
+org.eclipse.jdt.core.codeComplete.staticFinalFieldSuffixes=
+org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
+org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
+org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
+org.eclipse.jdt.core.compiler.compliance=1.7
+org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
+org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
+org.eclipse.jdt.core.compiler.source=1.7
+org.eclipse.jdt.core.timeoutForParameterNameFromAttachedJavadoc=50
+org.eclipse.jdt.core.userLibrary.comp102x=<?xml version\="1.0" encoding\="UTF-8"?>\n<userlibrary systemlibrary\="false" version\="2">\n\t<archive path\="/usr/share/bluej/userlib/comp102x.jar"/>\n\t<archive path\="/usr/share/bluej/userlib/core-2.3-SNAPSHOT.jar"/>\n\t<archive path\="/usr/share/bluej/userlib/ghost4j-0.3.1.jar"/>\n\t<archive path\="/usr/share/bluej/userlib/jai_imageio.jar"/>\n\t<archive path\="/usr/share/bluej/userlib/javase-2.3-SNAPSHOT.jar"/>\n\t<archive path\="/usr/share/bluej/userlib/jna.jar"/>\n\t<archive path\="/usr/share/bluej/userlib/junit-4.10.jar"/>\n\t<archive path\="/usr/share/bluej/userlib/tess4j.jar"/>\n</userlibrary>\n

@@ -1,0 +1,16 @@
+package strings;
+
+public class Traversal {
+	public static void main(String[] args) {
+		int index=0;
+		double d=22.2;
+		d=++d++;
+		String fruit = "plum";
+		while(index < fruit.length()){
+			System.out.println(fruit.charAt(index));
+			index++;
+		}
+		System.out.println(d);
+	}
+	
+}

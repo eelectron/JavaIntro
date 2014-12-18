@@ -1,0 +1,27 @@
+package priorityQueue;
+
+public class Key implements Comparable{
+	private float value;
+	
+	//Constructor
+	public Key(float in){
+		value=in;
+	}
+	
+	public void setX(float x){
+		value=x;
+	}
+	
+	public float getX(){
+		return value;
+	}
+	@Override
+	public int compareTo(Object o) {
+		Key k=(Key)o;
+		float v = value - k.value;
+		
+		if(v < 0)		return -1;
+		else if(v > 0)  return 1;
+		else			return 0;
+	}
+}

@@ -1,0 +1,21 @@
+package animal;
+
+import chapter5.DotCom;
+
+public class Computer {
+	Computer turnOn(){
+		System.out.println(1);
+		return null;
+	}
+	
+	public static void main(String[] args) {		
+		Computer ca=new Calculator();
+		System.out.println(ca.turnOn());
+	}
+}
+class Calculator extends Computer{
+	Calculator turnOn(){
+		System.out.println();
+		return null;
+	}
+}

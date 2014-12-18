@@ -1,0 +1,11 @@
+package animal;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		float f=1.1f;
+		double d=1.1;
+		if(f==d)System.out.println("equal");
+		else System.out.println("not");
+	}
+}

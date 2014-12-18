@@ -1,0 +1,17 @@
+package numbersAndStatic;
+
+public class TestBox {
+	Integer i;
+	int j;
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String s = String.format("%,i", 1234567890);
+	}
+	
+	void go(){
+		j=i;
+		System.out.println(i+" "+j);
+	}
+}

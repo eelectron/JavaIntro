@@ -1,0 +1,20 @@
+package gui;
+
+import javax.swing.JFrame;
+
+public class TwoButtons {
+	JFrame frame;
+	JLable label;
+	
+	public static void main(String[] args) {
+		
+	}
+	
+	void go(){
+		frame=new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(400, 400);
+		
+		
+	}
+}

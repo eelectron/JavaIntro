@@ -1,0 +1,110 @@
+package bst;
+
+public class BST<Key extends Comparable<Key>> {
+	private Node root;
+	
+	//NODE
+	private class Node{
+		private Key key;
+		private Value value;
+		private Node left,right;
+		private int count;
+		public Node(Key key,Value value){
+			this.key=key;
+			this.value=value;
+		}
+	}
+	
+	//Inserts a Key and value associated with it
+	//Ex: 12345:["prashant","India","M"]
+	public void put(Key k, Value v){
+		//create node
+		Node n=new Node(k,v);
+		
+		if(root == null)
+			root = n;
+		else{
+			Node currentNode = root;
+			
+			//Find a place 
+			while(currentNode != null){
+				int cmp = k.compareTo(currentNode.key);
+				if(cmp < 0 ){
+					if(currentNode.left == null){
+						currentNode.left = n;
+						break;
+					}
+					else
+						currentNode=currentNode.left;
+				}
+				else if(cmp > 0){
+					if(currentNode.right == null){
+						currentNode.right = n;
+						break;
+					}
+					else
+						currentNode = currentNode.right;
+				}
+				else{
+					System.out.println("Node already present");
+					break;
+				}
+			}
+		}	
+	}
+	
+	//Get a address of Value object back if present in tree otherwise return -1
+	public Value get(Key key){
+		Node x=root;
+		while(x!=null){
+			int cmp = key.compareTo(x.key);
+			if(cmp < 0)		x = x.left;
+			else if(cmp > 0)x = x.right;
+			else 			return x.value;
+		}
+		System.out.println("Key not found");
+		return null;
+	}
+	
+	//Gets floor of key ie key <= to given key
+	public Value floor(Key key){
+		
+		return floor(root, key);
+	}
+	
+	private Value floor(Node n, Key k){
+		//Return null if there is nothing in tree
+		if(n==null)return null;
+		
+		//compare the key with Node's key
+		int cmp=k.compareTo(n.key);
+		
+		if(cmp==0)return n.value;
+		else if(cmp < 0)return floor(n.left, k);
+		
+		Value v=floor(n.right, k);
+		if(v == null)return n.value;
+		else return v;
+		
+	}
+	
+	public Value min(){
+		return min(root);
+	}
+	
+	
+	private Value min(Node n) {
+		if(n==null)return null;
+		
+		//get min of left subtree
+		Value v=min(n.left);
+		if(v==null)return n.value;
+		else return v;
+		return null;
+	}
+
+	//Deletes key
+	public void delete(Key key){
+		
+	}
+}

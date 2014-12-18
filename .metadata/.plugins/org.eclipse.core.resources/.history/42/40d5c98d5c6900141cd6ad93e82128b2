@@ -1,0 +1,6 @@
+package arrayOfObjects;
+
+public class Card {
+	int suit,rank;
+	
+}

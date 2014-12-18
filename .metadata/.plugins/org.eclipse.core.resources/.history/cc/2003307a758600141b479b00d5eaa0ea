@@ -1,0 +1,10 @@
+package simpleRMI;
+
+public class MyRemoteImpl extends UnicastRemoteObject implements MyRemote{
+
+	@Override
+	public String sayHello() {
+		return "Hello RMI";
+	}
+
+}

@@ -1,0 +1,14 @@
+package objectsAndClasses;
+
+public class PlayerData {
+	static int playerCount=99;
+	String name="qqqq";
+	int age=19;
+	public static void main(String[] args) {
+		
+
+	}
+	
+	
+
+}

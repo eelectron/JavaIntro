@@ -1,0 +1,34 @@
+package bst;
+
+import java.util.Scanner;
+
+public class BSTTestClient {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		BST bst = new BST<Key>();
+		Scanner sc=new Scanner(System.in);
+		Key key;
+		Value v;
+		
+		String username;
+		System.out.println("Enter a integer and a username:");
+		while(sc.hasNextLine()){
+			System.out.println("Enter a integer and a username:");
+			//Form Key object
+			key=new Key(sc.nextLong());
+			
+			//Form Value object
+			v = new Value(sc.next());
+			
+			//Put in bst
+			bst.put(key, v);
+			
+			System.out.println("Enter floor?");
+			//Get from bst
+			System.out.println(bst.floor(new Key(sc.nextLong())));
+		}
+	}
+}

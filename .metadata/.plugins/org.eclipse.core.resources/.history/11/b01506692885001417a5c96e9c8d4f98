@@ -1,0 +1,7 @@
+package graph;
+
+public class DepthFirstPaths {
+	private boolean[] marked;
+	private int[] edgeTo;
+	private int sourceV;
+}

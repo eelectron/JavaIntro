@@ -1,0 +1,13 @@
+package graph;
+
+public class Graph {
+	private final int noOfVertex;
+	private Bag<Integer>[] adj;
+	public Graph(int V){
+		this.noOfVertex=V;
+		adj = (Bag<Integer>[])new Bag[V];
+		for (int v = 0; i < V; i++) {
+			adj[v]=new Bag<Integer>();
+		}
+	}
+}

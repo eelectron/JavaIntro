@@ -1,0 +1,29 @@
+package mergeSort;
+
+public class MergeSort {
+	
+	public void sort(Comparable[] a, Comparable[] aux, int lo, int hi){
+		
+	}
+	public void merge(Comparable[] a,Comparable[] aux, int lo, int mid, int hi){
+		//tracks position in a[]
+		int k;
+		
+		//copy elements to aux[]
+		for(k=lo; k<=hi; k++)
+			aux[k]=a[k];
+		
+		int i=lo,j=mid+1;
+		for(k=lo; k<=hi; k++){
+			if(i>mid)	 				a[k]=aux[j++];
+			else if(j>hi)				a[k]=aux[j++];
+			else if(less(a[j], a[i])) 	a[k]=aux[j++];
+			else						a[k]=aux[i++];
+		}
+	}
+	
+	public boolean less(Comparable a, Comparable b){
+		if(a.compareTo(b) < 0) 	return true;
+		else					return false;
+	}
+}

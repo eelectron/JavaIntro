@@ -1,0 +1,30 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
+public class SimpleChatClientA {
+	JTextField outgoing;
+	PrintWriter writer;
+	Socket sock;
+	
+	//make a gui and register a listener with the send button
+	//call the setupNetworking() method
+	public void go(){
+		
+	}
+	
+	//Make it private!
+	private void setUpNetworking(){
+		
+	}
+	
+	public class SendButtonListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+}

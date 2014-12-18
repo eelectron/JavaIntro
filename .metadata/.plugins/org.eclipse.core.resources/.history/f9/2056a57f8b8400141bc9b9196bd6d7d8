@@ -1,0 +1,16 @@
+package networkingAndThreads;
+
+public class ThreadTestDrive {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		ThreadOne one=new ThreadOne();
+		ThreadTwo two=new ThreadTwo();
+		Thread t1 = Thread(one);
+		Thread t2 = Thread(two);
+		
+	}
+
+}

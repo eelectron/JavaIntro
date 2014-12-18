@@ -1,0 +1,5 @@
+1417238677965	Rename type 'SimpleDotComGame'
+1417238708661	Rename type 'SimpleDotCom'
+1417239561999	Rename field 'locationCells'
+1417243244245	Rename local variable 'dotComsHit'
+1417243870286	Rename method 'checkYourself'

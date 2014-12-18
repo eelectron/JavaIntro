@@ -1,0 +1,11 @@
+package animal;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		Dog[] myDogs=new Dog[10];
+		myDogs[0]=new Dog();
+		myDogs[0].name = "Milo";myDogs[0].size = 7;
+		myDogs[0].bark();
+	}
+}

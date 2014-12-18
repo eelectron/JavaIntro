@@ -1,0 +1,15 @@
+package animal;
+
+import chapter5.DotCom;
+
+public class Computer {
+	boolean turnOn(){return true;}
+	
+	public static void main(String[] args) {		
+		Calculator ca=new Calculator();
+		System.out.println(ca.speed);
+	}
+}
+class Calculator extends Computer{
+	boolean turnOn(int level){return true;}
+}

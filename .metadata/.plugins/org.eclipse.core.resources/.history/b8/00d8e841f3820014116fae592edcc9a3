@@ -1,0 +1,19 @@
+package bst;
+
+import java.util.Scanner;
+
+public class BSTTestClient {
+
+	public static void main(String[] args) {
+		BST bst = new BST<Key>();
+		Scanner sc=new Scanner(System.in);
+		Key key;
+		Value v;
+		
+		System.out.println("Enter a integer and a username:");
+		while(true){
+			System.out.println("1.Insert\n"+"2.DeleteMin\n");
+			int choice=sc.nextInt();
+		}
+	}
+}

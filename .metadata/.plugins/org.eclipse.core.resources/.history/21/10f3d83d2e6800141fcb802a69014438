@@ -1,0 +1,12 @@
+package strings;
+
+public class Traversal {
+	public static void main(String[] args) {
+		int n=17;
+		int fd=n/10;
+		int ld=n%10;
+		
+		System.out.println(fd+""+ld);
+	}
+	
+}

@@ -1,0 +1,16 @@
+package animal;
+
+import chapter5.DotCom;
+
+public class Computer {
+	float speed=2.2f;
+	
+	public static void main(String[] args) {		
+		Calculator ca=new Calculator();
+		System.out.println(ca.speed);
+	}
+}
+class Calculator extends Computer{
+	
+	
+}

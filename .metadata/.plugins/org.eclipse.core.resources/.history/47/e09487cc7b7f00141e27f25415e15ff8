@@ -1,0 +1,12 @@
+package mergeSort;
+
+public class MergeSort {
+	void merge(Comparable[] a,Comparable[] aux, int lo, int mid, int hi){
+		//tracks position in a[]
+		int k;
+		
+		//copy elements to aux[]
+		for(k=lo; k<=hi; k++)
+			aux[k]=a[k];
+	}
+}

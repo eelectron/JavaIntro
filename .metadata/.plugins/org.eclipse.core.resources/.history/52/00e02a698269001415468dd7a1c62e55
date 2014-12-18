@@ -1,0 +1,15 @@
+package arrayOfObjects;
+
+public class Deck {
+	Card[] cards ;
+	public Deck(){
+		cards = new Card[52];
+		int index=0;
+		for (int suit = 0; suit < 4; suit++) {
+			for (int rank = 1; rank < 14; rank++) {
+				cards[index]=new Card(suit,rank);
+			    index++;
+			}
+		}
+	}
+}

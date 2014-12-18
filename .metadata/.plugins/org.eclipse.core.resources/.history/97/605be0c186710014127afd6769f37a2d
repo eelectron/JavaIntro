@@ -1,0 +1,25 @@
+package NamesAndThing;
+
+public class Ex1 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] a=new int[100];
+		int[] count=new int[100];
+		for(int i=0; i<100; i++){
+			double x=Math.random();
+			a[i]=(int)(100*x);
+			System.out.println(x*100);
+		}
+		
+		for(int i=0; i<100; i++){
+			count[a[i]]++;
+		}
+		
+		for(int i=0; i<100; i++){
+			System.out.print(count[i]+" ");
+		}
+	}
+}

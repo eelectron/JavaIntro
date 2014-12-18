@@ -1,0 +1,12 @@
+package numbersAndStatic;
+
+public class TestBox {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+	}
+
+}

@@ -1,0 +1,19 @@
+package graph;
+
+import java.util.LinkedList;
+
+public class Graph {
+	private final int noOfVertex;		//no of vertex
+	private LinkedList<Integer>[] adj;  //adjacency array holds 
+	
+	//constructor
+	public Graph(int V){
+		this.noOfVertex=V;
+		adj = new LinkedList[noOfVertex];
+		for (int v = 0; v < noOfVertex; v++) {
+			adj[v]=new LinkedList<Integer>();
+		}
+	}
+	
+	
+}

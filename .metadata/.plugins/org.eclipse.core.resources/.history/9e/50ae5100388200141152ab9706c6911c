@@ -1,0 +1,30 @@
+package networkingAndThreads;
+
+public class RyanAndMonicaJob implements Runnable{
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void run() {
+		
+	}
+
+}
+
+class BankAccount{
+	private int balance=100;
+	
+	int getBalance(){
+		return balance;
+	}
+	
+	void withdraw(int amount){
+		balance = balance - amount;
+	}
+}

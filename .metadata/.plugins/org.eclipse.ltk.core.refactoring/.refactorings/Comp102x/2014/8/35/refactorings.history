@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;TingTong&apos; to &apos;FinalExam&apos;&#x0A;- Original project: &apos;Comp102x&apos;&#x0A;- Original element: &apos;TingTong&apos;&#x0A;- Renamed element: &apos;FinalExam&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;TingTong&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{TingTong.java[TingTong" matchStrategy="1" name="FinalExam" qualified="false" references="true" similarDeclarations="false" stamp="1409313774401" textual="false" version="1.0"/>
+</session>

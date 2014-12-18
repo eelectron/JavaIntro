@@ -1,0 +1,21 @@
+package arrayOfObjects;
+
+public class Deck {
+	Card[] cards ;
+	public Deck(int n){
+		cards = new Card[n];
+		int index=0;
+		for (int suit = 0; suit < 4; suit++) {
+			for (int rank = 1; rank < 14 && index < n; rank++) {
+				cards[index]=new Card(suit,rank);
+			    index++;
+			}
+		}
+	}
+	
+	public void printDeck(Deck deck){
+		for (int i = 0; i < deck.cards.length; i++) {
+			Card.printCard(deck.cards[i]);
+		}
+	}
+}

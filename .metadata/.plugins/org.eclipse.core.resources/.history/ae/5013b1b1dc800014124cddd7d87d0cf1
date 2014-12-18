@@ -1,0 +1,47 @@
+package savingObjects;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+public class QuizCardPlayer {
+	private JTextArea display;
+	private JTextArea answer;
+	private ArrayList<QuizCard> cardList;
+	private QuizCard currentCard;
+	private int currentCardIndex;
+	private JFrame frame;
+	private JButton nextButton;
+	private boolean isShowAnswer;
+	
+	
+	public void go(){
+		
+	}
+	
+	class NextCardListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	class OpenMenuListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
+	private void loadFile(File file){
+		
+	}
+	
+	private void makeCard(String lineToParse){
+		
+	}
+}

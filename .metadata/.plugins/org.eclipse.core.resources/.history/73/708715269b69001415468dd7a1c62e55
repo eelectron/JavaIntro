@@ -1,0 +1,47 @@
+package arrayOfObjects;
+
+public class Deck {
+	Card[] cards ;
+	public Deck(int n){
+		cards = new Card[n];
+		int index=0;
+		for (int suit = 0; suit < 4; suit++) {
+			for (int rank = 1; rank < 14 && index < n; rank++) {
+				cards[index]=new Card(suit,rank);
+			    index++;
+			}
+		}
+	}
+	public static void main(String[] args) {
+		Deck d=new Deck(52);
+		d.shuffleDeck(d);
+		d.printDeck(d);
+	}
+	public void printDeck(Deck deck){
+		for (int i = 0; i < deck.cards.length; i++) {
+			Card.printCard(deck.cards[i]);
+		}
+	}
+	
+	public static Deck subDeck(Deck deck,int low,int high){
+		Deck sub = new Deck(high-low+1);
+		
+		for (int i = 0; i < sub.cards.length; i++) {
+			sub.cards[i] = deck.cards[low+i];
+		}
+		
+		return sub;
+	}
+	
+	public void shuffleDeck(Deck deck){
+		Card temp;
+		int rnd;
+		for (int i = 0; i < deck.cards.length; i++) {
+			temp = deck.cards[i];
+			rnd = ((int)(Math.random()*100))%52;
+			deck.cards[i] = deck.cards[rnd];
+			deck.cards[rnd] = temp;
+			
+		}
+	}
+}

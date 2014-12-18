@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;n2&apos; in &apos;bst.RedBlackBST.rotateLeft(...)&apos; to &apos;newNode&apos;&#x0A;- Original project: &apos;Algorithms-I&apos;&#x0A;- Original element: &apos;bst.RedBlackBST.rotateLeft(Node).n2&apos;&#x0A;- Renamed element: &apos;n2&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;n2&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;bst{RedBlackBST.java[RedBlackBST~rotateLeft~QNode;@n2!415!442!420!421!QNode;!0!false" name="newNode" references="true" stamp="1418573640379" version="1.0"/>
+</session>

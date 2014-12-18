@@ -1,0 +1,40 @@
+package bst;
+
+import java.util.Scanner;
+
+public class BSTTestClient {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		BST bst = new BST<Key>();
+		Scanner sc=new Scanner(System.in);
+		
+		//Used to form Key
+		Key key;
+		
+		//Used in Value class
+		Value v;
+		
+		String username;
+		System.out.println("Enter a integer and a username:");
+		while(sc.hasNextLine()){
+			System.out.println("Enter a integer and a username:");
+			//take line split it into tokens
+			String[] tokens = sc.nextLine().split(" ");
+			
+			//Form Key object
+			key=new Key(sc.nextLong());
+			
+			//Form Value object
+			v = new Value(tokens[1]);
+			
+			//Put in bst
+			bst.put(key, v);
+			
+			//Get from bst
+			System.out.println(bst.floor(new Key(sc.nextLong())));
+		}
+	}
+}

@@ -1,0 +1,20 @@
+package objectsAndClasses;
+
+public class PlayerData {
+	static int playerCount=99;
+	String name="qqqq";
+	int age=19;
+	public static void main(String[] args) {
+		PlayerData pd=new PlayerData();
+		String s = "gggg"+-44.9808;
+		System.out.println(s);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("my weight is ");
+		sb.append(50.98+" ");
+		sb.append('.');
+		System.out.println(sb.toString());
+		
+
+	}
+}

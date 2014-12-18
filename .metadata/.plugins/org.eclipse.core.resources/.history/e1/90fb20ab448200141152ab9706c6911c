@@ -1,0 +1,6 @@
+package networkingAndThreads;
+
+public class VerySimpleChatServer {
+	ArrayLisst clientOutputStream;
+	
+}

@@ -1,0 +1,22 @@
+package NamesAndThing;
+
+public class Ex1 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		long startTime,endTime;
+		double time;
+		
+		startTime = System.currentTimeMillis();
+		System.out.println("Hypotenuse of triangle with width =42  and height=17 :"+Math.sqrt(42*42 + 17*17));
+		double x=Math.sin(1)*Math.sin(1) + Math.cos(1)*Math.cos(1);
+		System.out.println("Math.sin(1)*Math.sin(1) + Math.cos(1)*Math.cos(1) = "+x);
+		
+		endTime=System.currentTimeMillis();
+		
+		time = endTime - startTime;
+		System.out.println("Running time = "+time+" millisec");
+	}
+}

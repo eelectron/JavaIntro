@@ -1,0 +1,27 @@
+package networkingAndThreads;
+
+import java.io.BufferedReader;
+import java.net.Socket;
+import java.util.ArrayList;
+
+public class VerySimpleChatServer {
+	ArrayList clientOutputStream;
+	
+	public class ClientHandler implements Runnable{
+		BufferedReader reader;
+		Socket sock;
+		
+		public ClientHandler(Socket clientSocket){
+			try{
+				sock = clientSocket;
+			}
+		}
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
+}

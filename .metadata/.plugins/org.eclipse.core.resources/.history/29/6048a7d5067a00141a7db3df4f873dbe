@@ -1,0 +1,31 @@
+package animal;
+
+import chapter5.DotCom;
+
+public class Computer {
+	static int count;
+	Computer(){
+		count++;
+	}
+	Computer turnOn(){
+		System.out.println(getRAM());
+		return null;
+	}
+	
+	static int getRAM(){
+		turnOn();
+		return 3;
+	}
+	
+	public static void main(String[] args) {		
+		Calculator ca=new Calculator();
+		System.out.println(ca.turnOn());
+	}
+}
+class Calculator extends Computer{
+	
+	Calculator turnOn(){
+		System.out.println(2);
+		return null;
+	}
+}

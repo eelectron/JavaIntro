@@ -1,0 +1,32 @@
+package networkingAndThreads;
+
+public class ThreadTestDrive {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Runnable job=new MyRunnable();
+		Thread t=new Thread(job);
+		t.start();
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("In main......");
+	}
+
+}
+
+class MyRunnable implements Runnable{
+
+	@Override
+	public void run() {
+		go();
+	}
+	
+	void go(){
+		System.out.println("ThreAD......");
+	}
+}

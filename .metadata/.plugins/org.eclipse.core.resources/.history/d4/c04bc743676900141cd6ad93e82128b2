@@ -1,0 +1,26 @@
+package arrayOfObjects;
+
+public class Card {
+	int suit,rank;
+	
+	public Card(){
+		this.suit=0;
+		this.rank=0;
+	}
+	
+	public Card(int suit, int rank){
+		this.suit=suit;
+		this.rank=rank;
+	}
+	
+	public static void printCard(){
+		String[] suitMap ={"Club","Diamond","Heart","Spade"}; 
+		
+		String[] rankMap = 
+		
+		if(rank == 1 || rank == 11 || rank == 12 || rank == 13){
+			
+		}
+		System.out.println("The card is "+);
+	}
+}

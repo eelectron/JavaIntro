@@ -1,0 +1,10 @@
+package heapSort;
+
+public class Heap {
+	public static sort(Comparable[] x){
+		int N=x.length;
+		for (int i = 1; i < x.length/2; i++) {
+			
+		}
+	}
+}
