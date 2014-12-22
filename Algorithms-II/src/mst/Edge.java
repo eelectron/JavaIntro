@@ -1,6 +1,6 @@
 package mst;
 
-//Represents a weighted graph
+//EDGE of weighted graph
 public class Edge implements Comparable<Edge>{
 	int v,w;		//denotes terminal of a edge
 	double weight;
@@ -21,7 +21,7 @@ public class Edge implements Comparable<Edge>{
 	}
 	
 	@Override
-	public int compareTo(Edge otherEdge) {					//compare based on edge weight
+	public int compareTo(Edge otherEdge) {					//compare based on EDGE WEIGHT
 		if(this.weight < otherEdge.weight)		return -1;
 		else if(this.weight > otherEdge.weight)	return 1;
 		else 									return 0;	//both are equal

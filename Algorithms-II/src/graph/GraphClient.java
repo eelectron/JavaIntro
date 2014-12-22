@@ -3,6 +3,8 @@ package graph;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class GraphClient {
@@ -15,19 +17,21 @@ public class GraphClient {
 		}
 		int v=sc.nextInt();		//scans no. of vertex
 		
-		//creates graph with v vertices without edges
+		//Creates graph with v vertices without edges
 		Graph G=new Graph(v);
 		
-		//add edges to graph
+		//Add edges to graph
 		while(sc.hasNextInt()){
 			G.addEdge(sc.nextInt(), sc.nextInt());
 		}
 		
-		//print graphs edge
+		//Print adjacency list edge
 		for (int i = 0; i < G.getVertexCount(); i++) {
-			for(int w: G.adj(i)){
-				System.out.println(i+"--"+w);
-			}
+			System.out.println(i+":"+G.adj(i));
 		}
+		
+		//Find connected component of G
+		CC cc=new CC(G);
+		System.out.println(Arrays.toString(cc.getId()));
 	}
 }

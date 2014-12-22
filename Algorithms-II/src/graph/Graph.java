@@ -3,19 +3,19 @@ package graph;
 import java.util.LinkedList;
 
 public class Graph {
-	private final int noOfVertex;		//no. of vertex
-	private LinkedList<Integer>[] adj;  //adjacency array holds vertex adjacent to it
+	private final int totalVertex;		//no. of vertex
+	private LinkedList<Integer>[] adj;  //adjacency array holds vertex adjacent to each index
 	
 	//constructor
-	public Graph(int totalVertex){
-		noOfVertex=totalVertex;
-		adj = new LinkedList[noOfVertex];			//create empty array of linkList
-		for (int v = 0; v < noOfVertex; v++) {		//initially we have no vertex adjacent to any vertex 
-			adj[v]=new LinkedList<Integer>();
+	public Graph(int vertices){
+		totalVertex=vertices;
+		adj = new LinkedList[totalVertex];			//create empty array of linkList
+		for (int v = 0; v < totalVertex; v++) {		//initially we have no vertex adjacent to any vertex 
+			adj[v]=new LinkedList<Integer>();		//attach a empty list to each vertex(ie. index)
 		}
 	}
 	
-	//parallel edge allowed
+	//Used to add undirected edge to this graph's instance
 	public void addEdge(int v, int w){
 		adj[v].add(w);
 		adj[w].add(v);
@@ -27,6 +27,6 @@ public class Graph {
 	}
 	
 	public int getVertexCount(){
-		return noOfVertex;
+		return totalVertex;
 	}
 }
