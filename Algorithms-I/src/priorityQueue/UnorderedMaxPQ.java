@@ -2,10 +2,12 @@ package priorityQueue;
 
 import elementarySort.Sort;
 
+@SuppressWarnings("hiding")
 public class UnorderedMaxPQ<Key extends Comparable<Key>> {
 	private Key[] pq;
 	private int N;
 	
+	@SuppressWarnings("unchecked")
 	public UnorderedMaxPQ(int capacity){
 		pq=(Key[])new Comparable[capacity];
 	}
@@ -20,22 +22,20 @@ public class UnorderedMaxPQ<Key extends Comparable<Key>> {
 	
 	public Key delMax(){
 		//initially assume 0th position has max element
-		int max=0;
+		int maxIndex=0;
 		
-		for (int i = 0; i < N; i++) {
-			if(isLess(max, i))
-				max=i;
+		for (int i = 1; i < N; i++) {
+			if(isLess(maxIndex, i))
+				maxIndex=i;
 		}
 		
-		//move the max element to last position
-		Sort.swap(pq, max, N-1);
+		Sort.swap(pq, maxIndex, N-1);			//move the max element to last position
 		return pq[--N];
 	}
 
 	private boolean isLess(int max, int i) {
 		if(pq[max].compareTo(pq[i]) < 0)
 			return true;
-		
 		return false;
 	}
 }
