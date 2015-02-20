@@ -25,10 +25,17 @@
 		<item value="800" key="AvailableListSashWeight"/>
 		<item value="true" key="ResolveInstallWithAllSites"/>
 		<item value="694" key="AvailableVersionColumnWidth"/>
-		<item value="false" key="HideInstalledContent"/>
+		<item value="true" key="HideInstalledContent"/>
 		<item value="525" key="AvailableNameColumnWidth"/>
 		<item value="1" key="AvailableViewType"/>
 		<item value="200" key="AvailableDetailsSashWeight"/>
 		<item value="true" key="ShowLatestVersionsOnly"/>
+	</section>
+	<section name="org.eclipse.equinox.internal.p2.ui.dialogs.UpdateWizard.WizardSettings">
+		<item value="613" key="DIALOG_WIDTH"/>
+		<item value="48" key="DIALOG_Y_ORIGIN"/>
+		<item value="531" key="DIALOG_HEIGHT"/>
+		<item value="310" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 </section>

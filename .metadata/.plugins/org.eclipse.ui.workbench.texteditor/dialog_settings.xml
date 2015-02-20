@@ -3,27 +3,36 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="312" key="DIALOG_WIDTH"/>
 		<item value="111" key="DIALOG_Y_ORIGIN"/>
-		<item value="460" key="DIALOG_X_ORIGIN"/>
 		<item value="437" key="DIALOG_HEIGHT"/>
+		<item value="460" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wholeword"/>
-		<item value="" key="selection"/>
+		<item value="chosenPoints" key="selection"/>
 		<list key="findhistory">
-			<item value="JChoo"/>
-			<item value="spaces"/>
-			<item value="n"/>
-			<item value="IO.output"/>
+			<item value="aux"/>
+			<item value="T"/>
+			<item value="rqueue"/>
+			<item value="Item"/>
+			<item value="grid"/>
+			<item value="opened"/>
+			<item value="WeightedQuickUnion"/>
+			<item value="Linked"/>
 		</list>
 		<list key="replacehistory">
-			<item value="spaceCounter"/>
-			<item value="size"/>
-			<item value="System.out.print"/>
+			<item value="chosenPoints"/>
+			<item value="Item"/>
+			<item value="ritem"/>
+			<item value="T"/>
+			<item value="sites"/>
+			<item value="opened"/>
+			<item value="WeightedQuickUnionUF"/>
+			<item value="Array"/>
 		</list>
 	</section>
 </section>

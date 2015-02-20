@@ -17,9 +17,9 @@ public class GraphClient {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		int v=sc.nextInt();		//scans no. of vertex
+		int v=sc.nextInt();		//Take vertex count from input FILE
 		
-		//Creates graph with v vertices without edges
+		//Creates a empty graph
 		Digraph G=new Digraph(v);
 		
 		//Add edges to graph
@@ -27,13 +27,23 @@ public class GraphClient {
 			G.addEdge(sc.nextInt(), sc.nextInt());
 		}
 		
-		//Print adjacency list edge
+		//Print graph
 		for (int i = 0; i < G.getV(); i++) {
 			System.out.println(i+":"+G.adj(i));
 		}
 		
-		BreadthFirstPath bfs=new BreadthFirstPath(G, 0);
-		bfs.printDistanceArray();
+		System.out.println();
+		
+		//Prints reverse graph 
+		Digraph g=G.reverse();
+		//Print graph
+		for (int i = 0; i < G.getV(); i++) {
+			System.out.println(i+":"+ g.adj(i));
+		}
+		
+//		BreadthFirstPath bfs=new BreadthFirstPath(G, 0);
+//		bfs.printDistanceArray();
+//		bfs.breadthFirstPath();
 		//Find connected component of G
 //		CC cc=new CC(G);
 //		System.out.println(Arrays.toString(cc.getId()));

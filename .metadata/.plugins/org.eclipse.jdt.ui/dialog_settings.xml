@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<item value="filter_imports;" key="filters_last_used"/>
-	<item value="/home/prashant/Documents/ThinkJava/GridWorldCode" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="0" key="org.eclipse.jdt.uiformatter_page.white_space.java_view.inner"/>
+	<item value="776" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_height"/>
+	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
+	<item value="0" key="org.eclipse.jdt.uiformatter_page.white_space_tab_page.node"/>
+	<item value="/home/prashant/Documents/CSECourses/2.DATA_STRUCTURE/AlgorithmsPart-IbySedgewick" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
+	<item value="3" key="TypeHierarchyViewPart.orientation"/>
+	<item value="0" key="org.eclipse.jdt.ui.last.selected.jre.kind2"/>
+	<item value="0" key="org.eclipse.jdt.uiformatter_page.modify_dialog_tab_page.last_focus_index"/>
+	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
+	<item value="80" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_x"/>
+	<item value="/home/prashant/workspace/Algorithms-I/bin" key="org.eclipse.jdt.ui.last.external.project"/>
+	<item value="24" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_y"/>
+	<item value="1171" key="org.eclipse.jdt.uiformatter_pagemodify_dialog.preferred_width"/>
+	<item value="1" key="org.eclipse.jdt.uiformatter_page.line_wrapping_tab_page.last_category_index"/>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
 	</section>
@@ -27,7 +41,12 @@
 		<item value="false" key="FinalModifier"/>
 	</section>
 	<section name="ClasspathContainerSelectionPage">
-		<item value="3" key="index"/>
+		<item value="6" key="index"/>
+	</section>
+	<section name="JavaBuildConfigurationBlock">
+		<item value="false" key="expanded2"/>
+		<item value="true" key="expanded1"/>
+		<item value="true" key="expanded0"/>
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.preferences.EditTemplateDialog_dialogBounds">
 		<item value="696" key="DIALOG_WIDTH"/>

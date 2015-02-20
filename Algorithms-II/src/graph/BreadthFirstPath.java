@@ -5,24 +5,37 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import digraph.Digraph;
-
+/*
+ * Performs a Breadth First Search on a given Graph and a source vertex
+ * */
 public class BreadthFirstPath {
 	private boolean[] visited;
 	private int[] parent;
 	private int[] distTo;
-	private int s;
+	private int s,v;
+	LinkedList<Integer> q;
 	
+	//PLEASE provide a Graph and a Source vertex from where we start BFS
 	public  BreadthFirstPath(Digraph G,int s){
-		//initialize all three arrays
+		//vertex count in given Digraph
 		int n=G.getV();
+		
+		//initialize all three arrays
 		visited=new boolean[n];
 		parent=new int[n];
 		distTo=new int[n];
-		LinkedList<Integer> q=new LinkedList<Integer>();		//queue to store visited vertex
-		q.add(s);												//add the source to queue
-		visited[s]=true;										//mark it visited
+		
+		//QUEUE to store visited vertex
+		q=new LinkedList<Integer>();		
+		
+		//add the source vertex to queue
+		q.add(s);				
+		
+		//mark it visited
+		visited[s]=true;
+		
 		while(!q.isEmpty()){
-			int v=q.removeFirst();			//get first element from queue
+			v=q.removeFirst();			//get first element from queue
 			for(int w: G.adj(v)){			//iterate over vertices adjacent to v
 				if(!visited[w]){			
 					q.add(w);
@@ -33,6 +46,7 @@ public class BreadthFirstPath {
 			}
 		}
 	}
+	
 	public void printDistanceArray(){
 		System.out.println(Arrays.toString(distTo));
 	}
@@ -40,5 +54,11 @@ public class BreadthFirstPath {
 	//Tells whether a vertex is visited ?
 	public boolean isVisited(int v){
 		return visited[v];
+	}
+	
+	/*
+	 * Prints a breadth first path*/
+	public void breadthFirstPath(){
+		System.out.println(q);
 	}
 }

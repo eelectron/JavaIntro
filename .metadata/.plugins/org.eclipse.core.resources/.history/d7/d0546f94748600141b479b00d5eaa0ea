@@ -1,5 +1,0 @@
-package simpleRMI;
-
-public class MyRemoteImpl {
-
-}
