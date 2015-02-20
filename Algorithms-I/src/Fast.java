@@ -61,13 +61,11 @@ public class Fast {
 	 */
 	private void start() {
 		for (int i = 0; i < points.length; i++) {
-			if (!isVisited(points[i])) {
 				// sort pointshelper based on slope with points[i]
 				Arrays.sort(pointsHelper, points[i].SLOPE_ORDER);
 
 				// find points collinear to points[i]
 				collinearToRefPoint(points[i], pointsHelper);
-			}
 		}
 	}
 
@@ -112,16 +110,18 @@ public class Fast {
 
 			// sort it
 			Arrays.sort(sortPoint, 0, sp);
+			
+			if(refPoint.compareTo(sortPoint[0]) <= 0){
+				// print on stdout
+				printLineSegment(sortPoint);
 
-			// print on stdout
-			printLineSegment(sortPoint);
+				// print on screen
+				sortPoint[0].drawTo(sortPoint[sp - 1]);
 
-			// print on screen
-			sortPoint[0].drawTo(sortPoint[sp - 1]);
-
-			// mark visited
-			markVisited(sortPoint);
-
+				// mark visited
+				//markVisited(sortPoint);
+			}
+			
 		}
 
 	}
@@ -162,27 +162,6 @@ public class Fast {
 		double s3 = point.slopeTo(p3);
 		if (s1 == s2 && s1 == s3)
 			return true;
-		return false;
-	}
-
-	/*
-	 * Once a point drawn on line segment then put it in visited list .
-	 */
-	private void markVisited(Point[] p) {
-		for (int i = 0; i < sp; i++) {
-			if (!isVisited(p[i]))
-				visitedPoints[vp++] = p[i];
-		}
-	}
-
-	/*
-	 * @return true if given point is already considered.
-	 */
-	private boolean isVisited(Point point) {
-		for (int i = 0; i < vp; i++) {
-			if (point.compareTo(visitedPoints[i]) == 0)
-				return true;
-		}
 		return false;
 	}
 }

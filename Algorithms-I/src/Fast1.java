@@ -83,19 +83,36 @@ public class Fast1 {
 					lo = i;
 			} else if (lo != -1 && hi == -1) {
 				hi = i + 1;
+				processLine(refPoint, p, lo, hi);
+
+				// reset lo,hi
+				lo = -1;
+				hi = -1;
 			}
 		}
 		if (lo != -1 && hi == -1) {
 			hi = i + 1;
+			processLine(refPoint, p, lo, hi);
+
+			// reset lo,hi
+			lo = -1;
+			hi = -1;
 		}
+
+	}
+
+	/*
+	 * This method process each point sequence whic are collinear to refPoint.
+	 */
+	private void processLine(Point refPoint, Point[] p, int lo, int hi) {
 		// found a seq
 		if (lo < hi) {
 			// extract it
 			extractIt(refPoint, p, lo, hi);
-			
-			//sort it 
-			Arrays.sort(sortPoint,0,sp);
-			
+
+			// sort it
+			Arrays.sort(sortPoint, 0, sp);
+
 			// print on stdout
 			printLineSegment(sortPoint);
 
@@ -106,7 +123,13 @@ public class Fast1 {
 			markVisited(sortPoint);
 
 		}
+
 	}
+
+	/*
+	 * Extract the collinear points from pointHelper[] and put them in
+	 * sortPoint[], which represent a single line segment collinear to refPoint.
+	 */
 	private void extractIt(Point refPoint, Point[] p, int lo, int hi) {
 		int item = hi - lo + 1;
 		sp = 0;
