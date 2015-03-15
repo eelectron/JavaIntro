@@ -1,12 +1,14 @@
 /*************************************************************************
- * Compilation: javac KdTree.java Execution: java KdTree Dependencies:
- * Point2D.java RectHV.java StdDraw.java
+ * Compilation: javac KdTree.java input.txt 
+ * Execution: java KdTree
+ * Dependencies:Point2D.java RectHV.java StdDraw.java
  * 
- * Read points from a file (specified as a command-line argument) and draw to
- * standard draw. Highlight the closest point to the mouse.
+ * This data structure is a implementation of 2d-tree version of kd-tree. The
+ * idea is to build a BST with points in the nodes,using x-y co-ordinate to
+ * compare based on whether a node present in even level or odd level.
  * 
- * The nearest neighbor according to the brute-force algorithm is drawn in red;
- * the nearest neighbor using the kd-tree algorithm is drawn in blue.
+ * Its range search and nearest point search method has better timings than the
+ * brute force implementation.
  * 
  *************************************************************************/
 public class KdTree {
@@ -21,14 +23,15 @@ public class KdTree {
 
     private double xmin, ymin, xmax, ymax;
 
-    // Denotes node of tree
+    // Denotes node of the tree
     private static class Node {
-        private Point2D point; // Data of node
-        private boolean isEven;// node is at even or odd level
-        private RectHV rect;
-        private Node left; // Pointer to left node
+        private Point2D point;
+        private boolean isEven; // node is at even or odd level
+        private RectHV rect; // plane in which point lies
+        private Node left;
         private Node right;
 
+        // constructor creates the object with point, level and plane
         Node(Point2D point, boolean evenOddLevel, RectHV rectangle) {
             this.point = point;
             isEven = evenOddLevel;
@@ -36,16 +39,24 @@ public class KdTree {
         }
     }
 
+    /*
+     * @return true if tree is empty.
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /*
+     * @return total points stored in tree.
+     */
     public int size() {
         return size;
     }
 
-    // ***************************************Inserting a
-    // NODe**********************
+    /*
+     * Inserts a node which contains the point and rectangle(sub plane) in which
+     * point lies.Its a recursive method.
+     */
     public void insert(Point2D p) {
         // put the point in tree with the info about its Evenness and
         // in which rectangle(plane) it lies
@@ -56,6 +67,9 @@ public class KdTree {
         root = put(root, p, EVEN);
     }
 
+    /*
+     * Called by insert() , is used recursively to insert a point.
+     */
     private Node put(Node h, Point2D p, boolean e) {
         // Insert the node
         if (h == null) {
@@ -92,10 +106,15 @@ public class KdTree {
                 h.right = put(h.right, p, EVEN);
             }
         }
-
         return h;
     }
 
+    /*
+     * Used to compare x coordinate of two points.
+     * 
+     * @return {-1,0,1} any of these based on whether p is less, equal or more
+     * than q.
+     */
     private int compareX(Point2D p, Point2D q) {
         if (p.x() < q.x())
             return -1;
@@ -104,6 +123,12 @@ public class KdTree {
         return 0;
     }
 
+    /*
+     * Used to compare y coordinate of two points.
+     * 
+     * @return {-1,0,1} any of these based on whether p is less, equal or more
+     * than q.
+     */
     private int compareY(Point2D p, Point2D q) {
         if (p.y() < q.y())
             return -1;
@@ -111,29 +136,37 @@ public class KdTree {
             return +1;
         return 0;
     }
-    // *****************************************************************************************************
+
+    /*
+     * @return true if tree contains the queryPoint.
+     */
     public boolean contains(Point2D p) {
         Node curNode = root; // start with root node
         int cmp = 0;
         while (curNode != null) {
-            if (p.equals(curNode.point)) // FOUND :)
+            if (p.equals(curNode.point)) // FOUND point in tree :)
                 return true;
 
             if (curNode.isEven == EVEN)
-                cmp = compareX(p, curNode.point);
+                cmp = compareX(p, curNode.point); // compare x if node is at
+                                                  // even level
             else
-                cmp = compareY(p, curNode.point);
+                cmp = compareY(p, curNode.point); // compare y if node is at odd
+                                                  // level
 
             if (cmp < 0)
-                curNode = curNode.left;
+                curNode = curNode.left; // go to left or bottom plane
             else
-                curNode = curNode.right;
+                curNode = curNode.right; // go to right or top plane
         }
         return false;
     }
 
+    /*
+     * Draws all points Recursively in plane and all vertical lines in RED and
+     * all horizontal lines in BLUE.
+     */
     public void draw() {
-
         RectHV rect = new RectHV(0, 0, 1, 1);
         rect.draw();
         draw(root);
@@ -143,7 +176,7 @@ public class KdTree {
         if (node == null)
             return;
 
-        // draw point
+        // draw point first
         Point2D p = node.point;
         StdDraw.setPenColor(StdDraw.BLACK);
         StdDraw.setPenRadius(.01);
@@ -151,7 +184,8 @@ public class KdTree {
 
         double x = p.x();
         double y = p.y();
-        // draw line
+
+        // then draw line through it
         if (node.isEven == EVEN) { // draw vertical line
             StdDraw.setPenColor(StdDraw.RED);
             StdDraw.setPenRadius();
@@ -163,10 +197,15 @@ public class KdTree {
             StdDraw.line(node.rect.xmin(), y, node.rect.xmax(), y);
         }
 
-        draw(node.left);
-        draw(node.right);
+        draw(node.left); // draw point in left plane
+        draw(node.right); // draw point in right plane
     }
 
+    /*
+     * It recursively check the nodes which can lie in query rectangle.
+     * 
+     * @return a queue containing all the points lie in query rectangle.
+     */
     public Iterable<Point2D> range(RectHV queryRect) {
         Queue<Point2D> queue = new Queue<Point2D>();
         range(queryRect, root, queue);
@@ -182,13 +221,18 @@ public class KdTree {
 
         if (queryRect.intersects(rect)) {
             if (queryRect.contains(node.point)) {
-                queue.enqueue(node.point); // add point to queue contained in rectangle
+                queue.enqueue(node.point); // add point to queue contained in
+                                           // rectangle
             }
             range(queryRect, node.left, queue);
             range(queryRect, node.right, queue);
         }
     }
 
+    /*
+     * It recursively searches for a point nearest to query point and returns
+     * it.
+     */
     public Point2D nearest(Point2D queryPoint) {
         if (isEmpty())
             return null; // no points in tree
@@ -210,13 +254,13 @@ public class KdTree {
                                                            // and np
             if (dis < minDist) {
                 nearestPoint = node.point; // new nearest point
-                minDist = dis; // new min distance between query point and
-                               // nearest point
+                // new min distance between query point and nearest point
+                minDist = dis;
             }
 
             // OPTIMIZED nearest point search
             if (node.isEven) {
-                if (qp.x() < node.point.x()) {// qp present in left or bottom
+                if (qp.x() < node.point.x()) { // qp present in left or bottom
                                               // plane
                     nearest(qp, node.left);
                     nearest(qp, node.right);
@@ -225,7 +269,7 @@ public class KdTree {
                     nearest(qp, node.left);
                 }
             } else {
-                if (qp.y() < node.point.y()) {// qp present in left or bottom
+                if (qp.y() < node.point.y()) { // qp present in left or bottom
                                               // plane
                     nearest(qp, node.left);
                     nearest(qp, node.right);
@@ -239,28 +283,29 @@ public class KdTree {
 
     }
 
-    // Minimum distance between a point and a given rectangle
-    // Here node represent a rectangle
+    /*
+     * Minimum distance between a point and a given rectangle Here node contains
+     * a point and plane.
+     */
     private double distance(Point2D qp, Node node) {
         RectHV rect = node.rect;
         double d = 0;
 
-        // qp in left
-        if (qp.x() < rect.xmin()) {
+        if (qp.x() < rect.xmin()) { // qp in left of rectangle
             if (qp.y() < rect.ymin())
                 d = qp.distanceSquaredTo(new Point2D(rect.xmin(), rect.ymin()));
             else if (qp.y() > rect.ymax())
                 d = qp.distanceSquaredTo(new Point2D(rect.xmin(), rect.ymax()));
             else
                 d = qp.distanceSquaredTo(new Point2D(rect.xmin(), qp.y()));
-        } else if (qp.x() > rect.xmax()) { // qp in right
+        } else if (qp.x() > rect.xmax()) { // qp in right of rectangle
             if (qp.y() < rect.ymin())
                 d = qp.distanceSquaredTo(new Point2D(rect.xmax(), rect.ymin()));
             else if (qp.y() > rect.ymax())
                 d = qp.distanceSquaredTo(new Point2D(rect.xmax(), rect.ymax()));
             else
                 d = qp.distanceSquaredTo(new Point2D(rect.xmax(), qp.y()));
-        } else if (qp.y() < rect.ymin()) { // qp in bottom
+        } else if (qp.y() < rect.ymin()) { // qp in bottom of rectangle
             d = qp.distanceSquaredTo(new Point2D(qp.x(), rect.ymin()));
         } else
             d = qp.distanceSquaredTo(new Point2D(qp.x(), rect.ymax()));
@@ -269,6 +314,7 @@ public class KdTree {
         return d;
     }
 
+    // Used to test draw()
     public static void main(String[] args) {
         String filename = args[0];
         In in = new In(filename);
