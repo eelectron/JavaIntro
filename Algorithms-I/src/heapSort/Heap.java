@@ -6,13 +6,21 @@ public class Heap {
 	public static void sort(Comparable[] pq){
 		//index of last element
 		int N=pq.length-1;
+		
+		//First make a MAX heap of array
 		for (int i = N/2; i >= 1; i--) {
 			sink(pq, i, N);
 		}
 		
+		
 		while(N > 1){
+			
+			//shift max item at end of array
 			Sort.swap(pq, 1, N);
-			sink(pq, 1, --N);
+			N--;
+			
+			//keep remaing item in Max heap order
+			sink(pq, 1, N);
 		}
 	}
 	

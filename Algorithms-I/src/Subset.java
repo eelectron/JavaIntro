@@ -1,12 +1,14 @@
 /****************************************************************************
- * Compilation: javac Subset.java Execution: java Subset k(any integer)
+ * Compilation: javac Subset.java 
+ * Execution: 	java Subset k(any integer)
  * Dependencies: RandomizedQueue.java StdIn.java
  * 
  * The purpose of this program is to print some random string among the sequence
  * of strings given by user. Here we have used RandomizedQueue data structure to
  * store(enqueue) strings and return random strings.
  * 
- * @author Prashant Singh Written: 15-Feb-2015
+ * @author Prashant Singh 
+ * Written: 15-Feb-2015
  ****************************************************************************/
 
 public class Subset {

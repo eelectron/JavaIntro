@@ -15,8 +15,6 @@ public class Fast {
 	private Point[] points;
 	private Point[] pointsHelper;
 	private int pointCount;
-	private Point[] visitedPoints; // mark visited points
-	private int vp = 0; // count visited points
 	private Point[] sortPoint;
 	private int sp;
 	public static void main(String[] args) {
@@ -40,7 +38,6 @@ public class Fast {
 		In in = new In(fileName); // read x,y from file
 		pointCount = in.readInt(); // total points
 		points = new Point[pointCount]; // stores all points
-		visitedPoints = new Point[pointCount];
 		pointsHelper = new Point[pointCount];
 		sortPoint = new Point[pointCount];
 		for (int i = 0; i < points.length; i++) {

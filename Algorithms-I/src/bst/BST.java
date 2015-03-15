@@ -5,10 +5,10 @@ public class BST<Key extends Comparable<Key>> {
 	
 	//NODE
 	private class Node{
-		private Key key;
+		private Key   key;
 		private Value value;
-		private Node left,right;
-		private int count;
+		private Node  left,right;
+		private int   count;
 		public Node(Key key,Value value){
 			this.key=key;
 			this.value=value;
