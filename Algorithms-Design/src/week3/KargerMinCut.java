@@ -12,7 +12,7 @@ import graph.*;
 public class KargerMinCut {
     private int                     vc;         //vertex count
     private int                     value = 0;     //no. of edges in min cut
-    private TreeSet<Integer>[]    equalTo;    
+    private TreeSet<Integer>[]    contractTo;    
     private ArrayList<Edge>         edges;      //list of edges
     private boolean[]               removed;
     private Graph                   cg;
@@ -25,15 +25,16 @@ public class KargerMinCut {
         this.cg = new Graph(vc);
         for (int i = 0; i < vc; i++) {
             for(int v: g.adj(i))
-                if(v > i)
-                    cg.addEdge(i, v);
+                cg.addEdge(i, v);
+                    
         }
         //initialize
         removed = new boolean[vc];
         edges   = (ArrayList) g.edges();
-        equalTo = new TreeSet[vc];
+        contractTo = new TreeSet[vc];
         for (int i = 0; i < vc; i++) {
-            equalTo[i] = new TreeSet<Integer>();
+            contractTo[i] = new TreeSet<Integer>();
+            contractTo[i].add(i);
         }
         
         
@@ -49,11 +50,12 @@ public class KargerMinCut {
     /*Randomly select a Edge and contract it.*/
     public void contract(){
         int vertexCount = vc;
+        int edgeCount = edges.size();
         Random r = new Random();
         
         while(vertexCount > 2){
             //select a random edge
-            Edge e = (Edge)edges.remove(r.nextInt(vertexCount));
+            Edge e = (Edge)edges.remove(r.nextInt(edgeCount--));
             System.out.println(e);
             
             //remove u
@@ -61,67 +63,48 @@ public class KargerMinCut {
             int v = e.to();
             
             //self loop does not count towards min cut
-            boolean sl = isSelfLoop(equalTo[u], equalTo[v]);
-            if(sl){
-                if(!removed[u]){
-                    removed[u] = true;
+            boolean sl = isSelfLoop(contractTo[u], contractTo[v]);
+            if(!sl){
+              //means both end points merge with other two vertices
+                //so remve any one of those.
+                int x = remove(contractTo[u]);
+                int y = remove(contractTo[v]);
+                if(x != -1){
+                    removed[x]=true;
+                  //merge u 
+                    contractTo[v].addAll(contractTo[x]);
+                    contractTo[x].addAll(contractTo[v]);
                     
-                }
-                else if(!removed[v]){
-                    removed[v] = true;
-                }
-            }else{
-                if(!removed[u]){
-                    removed[u] = true;
-                   
-                }
-                else if(!removed[v]){
-                    removed[v] = true;
+                    vertexCount--;
+                }   
+                else if(y != -1){
+                    removed[y]=true;
+                  //merge u 
+                    contractTo[y].addAll(contractTo[u]);
+                    contractTo[u].addAll(contractTo[y]);
                     
+                    vertexCount--;
                 }
-//                else{
-//                    //means both end points merge with other two vertices
-//                    //so remve any one of those.
-//                    boolean rmv = remove(equalTo[u]);
-//                    if(!rmv)
-//                        remove(equalTo[v]);
-//                    
-//                    
-//                }
-                vertexCount--;
-                
             }
-          //merge u 
-            equalTo[v].add(u);
-            equalTo[u].add(v);
-            
+          
         }
     }
     
-    private boolean remove(TreeSet<Integer> ts) {
+    private int remove(TreeSet<Integer> ts) {
       //ver merged with u
         for(int x: ts){
             if(!removed[x]){
-                removed[x] = true;
-                return true;
+                return x;
             }
         }
-        return false;
+        return -1;
     }
 
     //CAN USE FIND-UNION
-    private boolean isSelfLoop(TreeSet<Integer> ts1, TreeSet<Integer> ts2) {
+    private boolean isSelfLoop(TreeSet<Integer> ts1, TreeSet<Integer> ts2) {        
         for(int x: ts1){
             for(int y: ts2){
-                //is x present in y's bag
-                if(x == y)
-                    return true;
-            }
-        }
-        
-        for(int x: ts1){
-            for(int y: ts2){
-                if(equalTo[y].contains(x))
+                if(contractTo[y].contains(x))
                     return true;
             }
         }
@@ -130,7 +113,7 @@ public class KargerMinCut {
 
 
     private void settle(int t){
-        int size = equalTo[t].size();
+        int size = contractTo[t].size();
         if(size == 0)
             return;
         
@@ -138,33 +121,29 @@ public class KargerMinCut {
         //to avoid coModification error
         int[] ta = new int[size];
         int i=0;
-        for (int v : equalTo[t]) {
+        for (int v : contractTo[t]) {
             ta[i++] = v;
         }
         
         //bag will contain all vertices equal to u or v
         TreeSet<Integer> bag = new TreeSet();
         for(int x : ta){
-            for(int y : equalTo[x]){
+            for(int y : contractTo[x]){
                 bag.add(y);
                 getAllEquals(y, bag);
-            }
-            
+            }   
         }
-        System.out.println("bag = "+bag);//////
-        for(int x : bag){
-            equalTo[t].add(x);
-        }
+        
+        contractTo[t].addAll(bag);
     }
     
     /*Recursive method.
      * Adds all vertices to bag which are merged with y.*/
     private void getAllEquals(int y, TreeSet<Integer> bag) {
-        for(int x : equalTo[y]){
+        for(int x : contractTo[y]){
             if(!bag.contains(x)){
                 bag.add(x);
                 getAllEquals(x, bag);
-                System.out.println("adds "+x);
             }
         }
     }
@@ -188,22 +167,13 @@ public class KargerMinCut {
         System.out.println("vertexRemain = "+U+" "+V);
     }
     
-    public void cutEdges(){
-        
-        //If any of u,v is not equalTo to ver then make it 
-        //equal to itsekf
-        if(!equalTo[U].contains(U))
-            equalTo[U].add(U);
-        
-        if(!equalTo[V].contains(V))
-            equalTo[V].add(V);
-        
-        System.out.println(equalTo[U]);
-        System.out.println(equalTo[V]);////////////////////////
+    public void cutEdges(){        
+        System.out.println(contractTo[U]);
+        System.out.println(contractTo[V]);////////////////////////
         
         //iterate over two set of vertices
-        for (int x : equalTo[U]) {
-            for(int y : equalTo[V]){
+        for (int x : contractTo[U]) {
+            for(int y : contractTo[V]){
                 if(isAdjacent(x, y)){
                     value++;
                 }
@@ -252,19 +222,19 @@ public class KargerMinCut {
                 //add edge u-v
                 
                 v--;
-                g.addEdge(u, v);
+                if(u < v)
+                    g.addEdge(u, v);
             }  
         }
         
-        //Find min cut
+        //Experiment
         KargerMinCut k ;
         int mincut = Integer.MAX_VALUE;
-        for(int i=0; i<v*v; i++){
+        for(int i=0; i<v; i++){
             k = new KargerMinCut(g);
             if(k.value < mincut)
                 mincut = k.value;
         }
-        
         System.out.println("Final min = "+mincut);
     }
 }
