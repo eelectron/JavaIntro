@@ -1,0 +1,88 @@
+package week2;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class CountComparisonQS {
+    int[] a;
+    int c;      //no. of comparisons in quick sort
+    public CountComparisonQS(File file, int n){
+        readInput(file, n);
+        quicksort(a, 0, n-1);
+        System.out.println("com = "+c);
+        for (int i = 0; i < n; i++) {
+            System.out.print(a[i]+" ");
+        }
+    }
+    
+    /*
+     * Reads integer from file and put them in array.*/
+    void readInput(File file, int n){
+        try {
+            //create array
+            a = new int[n];
+            Scanner s = new Scanner(file);
+            
+            //populate array
+            for (int i = 0; i < n; i++) {
+                a[i] = s.nextInt();
+            }
+            
+        } catch (FileNotFoundException e) {
+            System.err.println("File not Found!");
+        }
+    }
+    
+    void quicksort(int[] a1, int lo, int hi){
+        if(lo >= hi)return;
+        c = c + hi - lo;    //count comparisons
+//        exch(a1, lo, hi);
+        int j = partition(a1, lo, hi);
+        quicksort(a1, lo, j-1);
+        quicksort(a1, j+1, hi);
+    }
+
+    private int partition(int[] a1, int lo, int hi) {
+        //pivot
+        int pivotIndex = median(a1, lo, hi);
+        int pivot = a1[pivotIndex];
+        int i=lo,j=hi+1;
+        while(true){
+            while(a1[++i] < pivot)
+                if(i == hi && i >= pivotIndex)break;
+            
+            while(a1[--j] > pivot)
+                if(j == lo)break;
+            
+            if(i >= j)break;
+            //swap
+            exch(a1, i, j);
+        }
+        exch(a, pivotIndex, j);
+        return j;
+    }
+    
+    private int median(int[] a, int lo, int hi) {
+        int mid = (lo+hi)/2;
+        
+        if(a[lo] <= a[mid] && a[mid] <= a[hi])
+            return mid;
+        else if(a[mid] <= a[lo] && a[lo] <= a[hi])
+            return lo;
+        else
+            return hi;
+        
+    }
+
+    void exch(int[] a, int i, int j){
+        int c = a[i];
+        a[i] = a[j];
+        a[j] = c;
+    }
+    
+    public static void main(String[] args) {
+        File f = new File(args[0]);
+        CountComparisonQS c = new CountComparisonQS(f, 10000);
+    }
+}

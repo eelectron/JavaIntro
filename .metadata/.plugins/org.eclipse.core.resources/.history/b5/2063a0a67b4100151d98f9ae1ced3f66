@@ -1,0 +1,10 @@
+package week5;
+
+import priorityQueue.MinPQ;
+import mst.DirectedEdge;
+
+public class DijkstraSP {
+    private DirectedEdge[]      edgeTo;      //last edge to vertices
+    private double[]            distTo;      //shortest dist of vertices from src
+    private MinPQ<DirectedEdge> pq;
+}

@@ -1,0 +1,9 @@
+package week6;
+
+import priorityQueue.MaxPQ;
+import priorityQueue.MinPQ;
+
+public class MedianMaintainance {
+    MaxPQ<Integer> hlow = new MaxPQ<Integer>(1);
+    MinPQ<Integer> hhigh = new MinPQ<Integer>(1);
+}

@@ -1,0 +1,280 @@
+import java.util.Comparator;
+
+public class Board {
+	private final int N; // dimension of board
+	private final char[][] blocks; // represents a NxN board
+	private int b_i, b_j; // location of blank tile
+	private int move;
+	private int manhattan=-1;
+	private Board parentBoard;
+	
+	public Board(int[][] blocks) {
+		this.N = blocks[0].length;
+		this.blocks = new char[N][N];
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				this.blocks[i][j] = (char)blocks[i][j];
+
+				// gets the location of blank block
+				if (blocks[i][j] == 0) {
+					b_i = i;
+					b_j = j;
+				}
+			}
+		}
+		
+		//set its manhattan distance
+		manhattan();
+	}
+	
+	/*
+	 * @param Board will be set as parent of given board.*/
+	public void setParent(Board b){
+		parentBoard = b;
+	}
+	
+	/*
+	 * @return parent board of given board.*/
+	public Board getParent(){
+		return parentBoard;
+	}
+	
+	/*
+	 * @return dimension of board
+	 */
+	public int dimension() {
+		return N;
+	}
+	
+	/*
+	 * @param n, is level of board in the tree.*/
+	public void setMove(int n) {
+		move = n;
+	}
+
+	/*
+	 * @return no of blocks out of place.
+	 */
+	public int hamming() {
+		int hamming=0;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (blocks[i][j] != getBlockVal(i, j) && blocks[i][j] != 0)
+					hamming++;
+			}
+		}
+		return hamming;
+	}
+
+	
+	/*
+	 * 0 denotes the blank block. 
+	 * @return sum of manhattan distances between blocks and their goal.
+	 */
+	public int manhattan() {
+		if(manhattan != -1)return manhattan;
+		
+		int curBlock;
+		int currentLoc = 0; // current location of the block
+		int finalLoc = 0; // final location of the block
+		int diff = 0; // finalLoc - currentLoc
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				curBlock = blocks[i][j];
+
+				// don't find manhattan dist. for blank block
+				if (curBlock == 0)
+					continue;
+
+				currentLoc = getBlockVal(i, j);
+				finalLoc = curBlock;
+
+				diff = Math.abs(finalLoc - currentLoc);
+				manhattan = manhattan + diff / N + diff % N;
+			}
+		}
+		return manhattan;
+	}
+
+	/*
+	 * @return true if given board is our goal.
+	 */
+	public boolean isGoal() {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (blocks[i][j] != getBlockVal(i, j)
+						&& getBlockVal(i, j) != N * N)
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	/*
+	 * @return true if two boards are equal.*/
+	public boolean equals(Object y) {
+		// return true if both pointing to same object
+		if (this == y)return true;
+		if (y == null)return false;
+		if (y.getClass() != this.getClass())
+			return false;
+
+		Board b = (Board) y;
+		// return false if there dimensions are diff.
+		if (this.N != b.N)		return false;
+
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (blocks[i][j] != b.blocks[i][j])
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	/*
+	 * @return a Board which is twin of this board.*/
+	public Board twin() {
+		int n1,n2;
+		int[][] boardsTwin = copyBlocks();
+		for (int i = 0; i < boardsTwin.length; i++) {
+			for (int j = 1; j < boardsTwin.length; j++) {
+				n1 = boardsTwin[i][j];
+				n2 = boardsTwin[i][j-1];
+				if(n1 == 0 || n2 == 0)continue;
+				boardsTwin[i][j] = n2;
+				boardsTwin[i][j-1] = n1;
+			}
+		}
+		return new Board(boardsTwin);
+	}
+	
+	/*
+	 * @return all the neighbors of this board.*/
+	public Iterable<Board> neighbors() {
+		MinPQ<Board> s = new MinPQ<Board>(getBoardComparator());
+		int[][] b = copyBlocks();;
+		Board board;
+		/*
+		 * if adjacent location of blank block is valid then create a new board
+		 * by swappicountMoves++;ng that blank block with adj block.
+		 */
+		// check above loc
+		if (isValid(b_i - 1, b_j)) {
+			swap(b, b_i - 1, b_j);
+			board = new Board(b);
+			s.insert(board);
+			swap(b, b_i - 1, b_j);
+		}
+		// below
+		if (isValid(b_i + 1, b_j)) {
+			swap(b, b_i + 1, b_j);
+			board = new Board(b);
+			s.insert(board);
+			swap(b, b_i + 1, b_j);
+		}
+
+		// left
+		if (isValid(b_i, b_j - 1)) {
+			swap(b, b_i, b_j - 1);
+			board = new Board(b);
+			s.insert(board);
+			swap(b, b_i, b_j - 1);
+		}
+
+		// right
+		if (isValid(b_i, b_j + 1)) {
+			swap(b, b_i, b_j + 1);
+			board = new Board(b);
+			s.insert(board);
+			swap(b, b_i, b_j + 1);
+		}
+		return s;
+	}
+	
+	/*
+	 * BoardComparator class is used to compare to boards.
+	 * In MinPQ it is used to create a minheap.*/
+	private  class BoardComparator implements Comparator<Board> {
+		public int compare(Board b1, Board b2) {
+			int mhPriority_b1, mhPriority_b2;
+			//Manhattan priority of boards
+			mhPriority_b1 = b1.manhattan() + b1.move;
+			mhPriority_b2 = b2.manhattan() + b2.move;
+			
+			if (mhPriority_b1 < mhPriority_b2)return -1;
+			if (mhPriority_b1 > mhPriority_b2)return 1;	
+			
+			if(b1.manhattan() < b2.manhattan()) return -1;
+			if(b1.manhattan() > b2.manhattan())return 1;
+			return 0;
+		}
+	}
+	
+	public Comparator<Board> getBoardComparator(){
+		return new BoardComparator();
+	}
+	
+	/*
+	 * @return string representation of this board.
+	 */
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+		s.append(N + "\n");
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				s.append(String.format("%2d ", (int)blocks[i][j]));
+			}
+			s.append("\n");
+		}
+		return s.toString();
+	}
+	
+	/*
+	 * @return the level of node.*/
+	public int getMove() {
+		return move;
+	}
+	
+	/*
+	 * @return char 2d array which is copy of given board.*/
+	private int[][] copyBlocks() {
+		int[][] b = new int[N][N];
+		for (int i = 0; i < b.length; i++) {
+			for (int j = 0; j < b.length; j++) {
+				b[i][j] = blocks[i][j];
+			}
+		}
+		return b;
+	}
+	
+	/*
+	 * swaps given tile with blank tile.*/
+	private void swap(int[][] b, int i, int j) {
+		int temp = b[b_i][b_j];
+		b[b_i][b_j] = b[i][j];
+		b[i][j] = temp;
+	}
+
+	/*
+	 * @return block number which must be present at the specified location(i,
+	 * j).
+	 */
+	private int getBlockVal(int i, int j) {
+		return i * N + j + 1;
+	}
+	
+	/*
+	 * @return true if given index is valid.*/
+	private boolean isValid(int i, int j) {
+		if (i < 0 || i >= N)
+			return false;
+		if (j < 0 || j >= N)
+			return false;
+		return true;
+	}
+
+	public char[][] getBlocks() {
+		return blocks;
+	}
+}

@@ -1,130 +1,188 @@
+/*BINARY SEARCH TREE hai yaar*/
+/*           3
+           /   \
+          1     5
+           \   / 
+           2  4
+*/
 package bst;
 
-public class BST<Key extends Comparable<Key>> {
-	private Node root;
-	
-	//NODE
-	private class Node{
-		private Key   key;
-		private Value value;
-		private Node  left,right;
-		private int   count;
-		public Node(Key key,Value value){
-			this.key=key;
-			this.value=value;
-		}
-		
-		public String toString(){
-			return key.toString();
-		}
-	}
-	
-	//Inserts a Key and value associated with it
-	//Ex: 12345:["prashant","India","M"]
-	public void put(Key k, Value v){
-		root = put(root, k, v);
-	}
-	
-	private Node put(Node x, Key k, Value v) {
-		if(x==null)
-			return new Node(k,v);
-		int cmp=k.compareTo(x.key);
-		if(cmp < 0 )	x.left = put(x.left, k, v);
-		else if(cmp > 0)x.right = put(x.right, k, v);
-		else 			x.value = v;
-		x.count = 1 + size(x.left) + size(x.right);
-		return x;
-	}
-	
-	//Size of node tells us the number of node's present below it ,including itself 
-	public int size(Node x){
-		if(x==null)return 0;
-		return x.count;
-	}
+import java.util.Scanner;
 
-	//Get a address of Value object back if present in tree otherwise return -1
-	public Value get(Key key){
-		Node x=root;
-		while(x!=null){
-			int cmp = key.compareTo(x.key);
-			if(cmp < 0)		x = x.left;
-			else if(cmp > 0)x = x.right;
-			else 			return x.value;
-		}
-		System.out.println("Key not found");
-		return null;
-	}
-	
-	//Gets floor of key ie key <= to given key
-	public Value floor(Key key){
-		
-		return floor(root, key);
-	}
-	
-	private Value floor(Node n, Key k){
-		//Return null if there is nothing in tree
-		if(n==null)return null;
-		
-		//compare the key with Node's key
-		int cmp=k.compareTo(n.key);
-		
-		if(cmp==0)return n.value;
-		else if(cmp < 0)return floor(n.left, k);
-		
-		Value v=floor(n.right, k);
-		if(v == null)return n.value;
-		else return v;
-		
-	}
-	
-	//FIND MINIMUM KEY IN TREE
-	public Node min(){
-		return min(root);
-	}
-	
-	private Node min(Node n) {
-		if(n==null)return null;
-		
-		//get min of left subtree
-		Node v=min(n.left);
-		
-		//If nothing return from left subtree then return current node's value else return v
-		if(v==null)	return n;
-		else 		return v;
-	}
-	
-	//FIND MAX KEY IN TREE
-	public Node max(){
-		return max(root);
-	}
-	private Node max(Node node) {
-		if(node==null)return null;
-		
-		Node v=max(node.right);
-		if(v==null)	return node;
-		else 		return v;
-	}
+public class BST {
+    private Node root;      //root of binary tree
 
-	//Deletes key
-	public void delete(Key key){
-		
-	}
-	
-	//Delete min
-	public void deleteMin(){
-		root = deleteMin(root);	
-	}
+    // NODE
+    private class Node {
+        private Key key;
+        private Value value;
+        private Node left, right;
+        private int count=1; // no. of nodes rooted at each node
+        public Node(Key key, Value value) {
+            this.key = key;
+            this.value = value;
+        }
+        
+        //looks of node
+        public String toString() {
+            return key.toString();
+        }
+    }
 
-	private Node deleteMin(Node x) {
-		//If tree is empty then do nothing 
-		if(isTreeEmpty())return null;
-		else if(x.left == null)return x.right;
-		else x.left = deleteMin(x.left);
-		x.count = 1 + size(x.left) + size(x.right);
-		return x;
-	}
-	
-	public boolean isTreeEmpty(){
-		return root == null;
-	}
+    // Inserts a Key and value associated with it
+    // Ex: 12345:["prashant","India","M"]
+    public void put(Key k, Value v) {
+        root = put(root, k, v);
+    }
+    
+    /*
+     * This function is expecting a node,key & value object.*/
+    private Node put(Node x, Key k, Value v) {
+        if (x == null)
+            return new Node(k, v);
+        int cmp = k.compareTo(x.key);
+        if (cmp < 0)
+            x.left = put(x.left, k, v);
+        else if (cmp > 0)
+            x.right = put(x.right, k, v);
+        else
+            x.value = v;
+        
+        x.count = 1 + size(x.left) + size(x.right);
+        return x;
+    }
+
+    // Size of node tells us the number of node's present below it ,including
+    // itself
+    public int size(Node x) {
+        if (x == null)
+            return 0;
+        return x.count;
+    }
+
+    // Get a address of Value object back if present in tree otherwise return -1
+    public Value get(Key key) {
+        Node x = root;
+        while (x != null) {
+            int cmp = key.compareTo(x.key);
+            if (cmp < 0)
+                x = x.left;
+            else if (cmp > 0)
+                x = x.right;
+            else
+                return x.value;
+        }
+        System.out.println("Key not found");
+        return null;
+    }
+
+    // Gets floor of key ie key <= to given key
+    public Value floor(Key key) {
+
+        return floor(root, key);
+    }
+
+    private Value floor(Node n, Key k) {
+        // Return null if there is nothing in tree
+        if (n == null)
+            return null;
+
+        // compare the key with Node's key
+        int cmp = k.compareTo(n.key);
+
+        if (cmp == 0)
+            return n.value;
+        else if (cmp < 0)
+            return floor(n.left, k);
+
+        Value v = floor(n.right, k);
+        if (v == null)
+            return n.value;
+        else
+            return v;
+
+    }
+
+    // FIND MINIMUM KEY IN TREE
+    public Node min() {
+        return min(root);
+    }
+
+    private Node min(Node n) {
+        if (n == null)
+            return null;
+
+        // get min of left subtree
+        Node v = min(n.left);
+
+        // If nothing return from left subtree then
+        // return current node's value else return v
+        if (v == null)
+            return n;
+        else
+            return v;
+    }
+
+    // FIND MAX KEY IN TREE
+    public Node max() {
+        return max(root);
+    }
+    private Node max(Node node) {
+        if (node == null)
+            return null;
+
+        Node v = max(node.right);
+        if (v == null)
+            return node;
+        else
+            return v;
+    }
+
+    // Deletes key
+    public void delete(Key key) {
+
+    }
+
+    // Delete min
+    public void deleteMin() {
+        root = deleteMin(root);
+    }
+
+    private Node deleteMin(Node x) {
+        // If tree is empty then do nothing
+        if (isTreeEmpty())
+            return null;
+        else if (x.left == null)
+            return x.right;
+        else
+            x.left = deleteMin(x.left);
+        x.count = 1 + size(x.left) + size(x.right);
+        return x;
+    }
+
+    public boolean isTreeEmpty() {
+        return root == null;
+    }
+    
+    public static void main(String[] args) {
+        BST bst = new BST();        //create object of BST
+        Scanner sc = new Scanner(System.in);    //takes input from console
+        
+        long key;
+        String s;
+        byte opt = 'y';
+        //create tree
+        while(opt == 'y'){
+            System.out.print("Enter key:");
+            key = sc.nextLong();
+            
+            System.out.print("Enter value:");
+            s = sc.next();
+            
+            bst.put(new Key(key), new Value(s));    
+            System.out.print("Press y: continue, n:exit");
+            opt = sc.nextByte();
+        }        
+    }
 }
+

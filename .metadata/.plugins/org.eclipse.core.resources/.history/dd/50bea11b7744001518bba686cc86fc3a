@@ -1,0 +1,14 @@
+package week6;
+
+public class TwoSum {
+    int size ;  //size of array     
+    long[] a ;  //array of long int
+    
+    //creates and populates array
+    public TwoSum(int size){
+        this.size = size;
+        a = new long[size];
+        
+        //
+    }
+}

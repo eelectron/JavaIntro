@@ -3,36 +3,36 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="312" key="DIALOG_WIDTH"/>
 		<item value="111" key="DIALOG_Y_ORIGIN"/>
-		<item value="437" key="DIALOG_HEIGHT"/>
 		<item value="460" key="DIALOG_X_ORIGIN"/>
+		<item value="437" key="DIALOG_HEIGHT"/>
 		<item value="1|Ubuntu|11.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="true" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wholeword"/>
-		<item value="chosenPoints" key="selection"/>
+		<item value="p" key="selection"/>
 		<list key="findhistory">
-			<item value="aux"/>
-			<item value="T"/>
-			<item value="rqueue"/>
-			<item value="Item"/>
-			<item value="grid"/>
-			<item value="opened"/>
-			<item value="WeightedQuickUnion"/>
-			<item value="Linked"/>
+			<item value="key"/>
+			<item value="bj"/>
+			<item value="bi"/>
+			<item value="b_j"/>
+			<item value="b_i"/>
+			<item value="curBlock"/>
+			<item value="mhPriority_b2"/>
+			<item value="mhPriority_b1"/>
 		</list>
 		<list key="replacehistory">
-			<item value="chosenPoints"/>
-			<item value="Item"/>
-			<item value="ritem"/>
-			<item value="T"/>
-			<item value="sites"/>
-			<item value="opened"/>
-			<item value="WeightedQuickUnionUF"/>
-			<item value="Array"/>
+			<item value="p"/>
+			<item value="bCol"/>
+			<item value="bRow"/>
+			<item value="bj"/>
+			<item value="bi"/>
+			<item value="value"/>
+			<item value="p2"/>
+			<item value="p1"/>
 		</list>
 	</section>
 </section>

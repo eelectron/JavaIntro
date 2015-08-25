@@ -9,10 +9,9 @@ public class Heap {
 		
 		//First make a MAX heap of array
 		for (int i = N/2; i >= 1; i--) {
-			sink(pq, i, N);
+			sink(pq, i, N);  //starts to sink every element from 2nd last level to 0th level.
 		}
-		
-		
+	
 		while(N > 1){
 			
 			//shift max item at end of array

@@ -1,0 +1,6 @@
+package week3;
+
+public class KargerMinCut {
+    private int value ;     //no. of edges in min cut
+    Graph g;
+}

@@ -1,0 +1,33 @@
+package week6;
+
+import priorityQueue.MaxPQ;
+import priorityQueue.MinPQ;
+
+public class MedianMaintainance {
+    private MaxPQ<Integer> hlow = new MaxPQ<Integer>(1);
+    private MinPQ<Integer> hhigh = new MinPQ<Integer>(1);
+    
+    
+    private int isBalance(){
+        int x=hlow.size() - hhigh.size();
+        if(x ==0)return 0;      //equal
+        else if(x == 2)return 1;    //hlow has 2 more item 
+        else if(x == -1)return -1;  //hhigh has 
+    }
+    
+    public int median(){
+        return hlow.max();
+    }
+    
+    public void insert(int x){
+        if(x < hhigh.min() )
+            hlow.insert(x);
+        else
+            hhigh.insert(x);
+    }
+    
+    private void balanceHeap(){
+        if(!isBalance())
+            hhigh.insert(hlow.deleteMax());
+    }
+}

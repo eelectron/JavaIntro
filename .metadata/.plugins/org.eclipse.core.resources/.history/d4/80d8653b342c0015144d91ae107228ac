@@ -1,0 +1,10 @@
+package week2;
+
+public class CountComparisonQS {
+    int[] a;
+    int c;      //no. of comparisons in quick sort
+    
+    void readInput(File file){
+        
+    }
+}

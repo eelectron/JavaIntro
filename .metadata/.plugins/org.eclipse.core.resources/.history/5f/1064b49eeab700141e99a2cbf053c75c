@@ -1,0 +1,93 @@
+/*************************************************************************
+ * Name: Prashant Singh
+ * Email: prashantfromindia@gmail.com
+ *
+ * Compilation:  javac Fast.java
+ * Execution:	 java Fast rs1423.txt	
+ * Dependencies: Point.java,StdDraw.java
+ *
+ * Description: This program finds collinear points among a given set of N points
+ * and print them on screen.Its worst case running time is O(N^2logN).
+ *
+ *************************************************************************/
+
+public class Fast {
+	private Point[] points;
+	private Point[] pointsHelper;
+	private int pointCount;
+
+	public static void main(String[] args) {
+		Fast f = new Fast();
+
+		// rescale coordinates and turn on animation mode
+		StdDraw.setXscale(0, 32768);
+		StdDraw.setYscale(0, 32768);
+		StdDraw.show(0);
+
+		f.init(args[0]);			//initialize points[] array with points 
+		f.start();		
+
+		StdDraw.show(0); 			// display all points on screen
+	}
+
+	/*
+	 * Reads all the points from given text file and initialize the points[].
+	 */
+	private void init(String fileName) {
+		In in = new In(fileName); 		// read x,y from file
+		pointCount = in.readInt(); 		// total points
+		points = new Point[pointCount]; // stores all points
+		pointsHelper = new Point[pointCount];
+		for (int i = 0; i < points.length; i++) {
+			int x = in.readInt();
+			int y = in.readInt();
+			points[i] = new Point(x, y);
+			pointsHelper[i] = new Point(x, y);
+			
+			//draw every point on screen 
+			points[i].draw();
+		} 			
+	}
+	
+	/*
+	 * Start finding collinear points to each point in points[].*/
+	private void start() {
+		for (int i = 0; i < points.length; i++) {
+			 
+			Insertion.sort(pointsHelper, points[i].SLOPE_ORDER); 	//sort pointshelper based on slope with points[i] 
+			refPoint
+			// find points collinear to points[i]
+			collinearToRefPoint(points[i], pointsHelper);
+		}
+	}
+	
+	/*
+	 * Finds and print points collinear to refPoint.*/
+	private void collinearToRefPoint(Point refPoint, Point[] p) {
+		Point[] chosenPoints = new Point[4];
+		for (int i = 0; i+2 < p.length; i++) {
+			chosenPoints[0] = refPoint;
+			chosenPoints[1] = p[i];		//select 3 adjacent points to check their slope
+			chosenPoints[2] = p[i + 1];
+			chosenPoints[3] = p[i + 2];
+			if (isSlopeEqual(chosenPoints)) {
+				Insertion.sort(chosenPoints);
+				
+				chosenPoints[0].drawTo(chosenPoints[3]);			//draw line segment
+			}
+		}
+	}
+
+	/*
+	 * @return true if slope of 4 points are equal.
+	 */
+	private boolean isSlopeEqual(Point[] p) {
+		double s1 = p[0].slopeTo(p[1]);
+		double s2 = p[0].slopeTo(p[2]);
+		double s3 = p[0].slopeTo(p[3]);
+
+		if (s1 == s2 && s1 == s3)
+			return true;
+		return false;
+	}
+}

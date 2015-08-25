@@ -1,0 +1,149 @@
+import java.util.ArrayList;
+
+public class Solver {
+	private final Board board;
+	private final char[][] blocks;
+	private final int N;
+	private int minMoves = 0;
+	private Board bestBoard;
+	private ArrayList<Board> q = new ArrayList<Board>();
+
+	public Solver(Board board) {
+		this.board = board;
+		this.N = board.dimension();
+		blocks = board.getBlocks();
+	}
+
+	/*
+	 * @return true if given board is solvable.
+	 */
+	public boolean isSolvable() {
+		int[] board1D = new int[N * N]; // linear representation of board
+		int inversions = 0;
+		int rowOfBlankTile = 0;
+
+		// convert board to 1d array
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				board1D[i * N + j] = blocks[i][j];
+				if (board1D[i * N + j] == 0)
+					rowOfBlankTile = i;
+			}
+		}
+
+		// find no of inversions
+		for (int i = 0; i < board1D.length; i++) {
+			for (int j = i + 1; j < board1D.length; j++) {
+				// skip for blank tile
+				if (board1D[j] == 0)
+					continue;
+				if (board1D[i] > board1D[j])
+					inversions++;
+			}
+		}
+		
+		// for odd dimesion board for ex 3x3
+		if (!isEven(N) && !isEven(inversions))
+			return false;
+
+		// for even dimension board for ex 2x2
+		if (isEven(N) && isEven(inversions + rowOfBlankTile))
+			return false;
+		return true;
+	}
+
+	/*
+	 * */
+	public int moves() {
+		MinPQ<Board> mpq = new MinPQ<Board>(board.getBoardComparator());
+		bestBoard = board;
+
+		// add the start board to MinPQ
+		mpq.insert(bestBoard);
+
+		while (!mpq.isEmpty()) {
+//			StdOut.println(bestBoard.getManhattan() + " " + bestBoard.getMove());
+
+			// select the board with minimum manhattan distance
+			bestBoard = mpq.delMin();
+			q.add(bestBoard);
+
+			// break from loop if goal board is found
+			if (bestBoard.isGoal())
+				break;
+			
+			if(bestBoard.getMove() >= 150)
+				continue;
+			
+			// add its neighbors to minpq
+			for (Board b : bestBoard.neighbors()) {
+				if (!q.contains(b) && !mpqContains(mpq, b)) {
+					b.setParent(bestBoard); // set the parent of neighbor boards
+					b.setMove(bestBoard.getMove() + 1);
+					mpq.insert(b);
+				}
+			}
+		}
+		minMoves = bestBoard.getMove();
+		return minMoves;
+	}
+
+	/*
+	 * @return solution of given board..
+	 */
+	public Iterable<Board> solution() {
+		Stack<Board> s = new Stack<Board>();
+		while (bestBoard != null) {
+			s.push(bestBoard);
+			bestBoard = bestBoard.getParent();
+		}
+		return s;
+	}
+
+	/*
+	 * @return true if board is already present in minpq.
+	 */
+	private boolean mpqContains(MinPQ<Board> mpq, Board b) {
+		for (Board mpq_b : mpq) {
+			if (mpq_b.equals(b))
+				return true;
+		}
+		return false;
+	}
+
+	/*
+	 * */
+	private boolean isEven(int n) {
+		return n % 2 == 0;
+	}
+
+	public static void main(String[] args) {
+
+		// create initial board from file
+		In in = new In(args[0]);
+		int N = in.readInt();
+		int[][] blocks = new int[N][N];
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < N; j++)
+				blocks[i][j] = (char) in.readInt();
+		Board initial = new Board(blocks);
+
+		// solve the puzzle
+		Solver solver = new Solver(initial);
+
+		// print solution to standard output
+		if (!solver.isSolvable())
+			StdOut.println("No solution possible");
+		else {
+			StdOut.println("Minimum number of moves = " + solver.moves());
+			Iterable<Board> it = solver.solution();
+			if (it != null) {
+				for (Board board : it)
+					StdOut.println(board);
+				StdOut.println("Minimum number of moves = " + solver.minMoves);
+				StdOut.println(solver.q.size());
+			} else
+				StdOut.print("No SOLUTION");
+		}
+	}
+}

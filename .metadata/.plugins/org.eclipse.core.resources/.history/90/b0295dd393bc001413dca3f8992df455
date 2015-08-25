@@ -1,0 +1,15 @@
+
+public class Solver {
+	private final Board board;
+	private final int N;
+	public Solver(Board board){
+		this.board = board;
+		this.N = board.dimension();
+	}
+	
+	public boolean isSolvable(){
+		for (int i = 0; i < array.length; i++) {
+			
+		}
+	}
+}

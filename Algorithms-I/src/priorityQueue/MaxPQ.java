@@ -1,14 +1,16 @@
 package priorityQueue;
 
+import java.util.NoSuchElementException;
+
 import elementarySort.Sort;
 
-public class MaxPQ<Key extends Comparable<Key>> {
-	private Key[] pq;
+public class MaxPQ<T extends Comparable<T>> {
+	private T[] pq;
 	private int N=0;
 	
 	//CONSTRUCTOR
 	public MaxPQ(int capacity){
-		pq=(Key[])new Comparable[capacity+1];
+		pq=(T[])new Comparable[capacity+1];
 	}
 	
 	//Check status of pq
@@ -16,18 +18,39 @@ public class MaxPQ<Key extends Comparable<Key>> {
 		return N==0;
 	}
 	
+	public int size(){
+	    return N;
+	}
+	
+	public T max(){
+	    if(isEmpty())
+	        throw new NoSuchElementException("PQ is empty.");
+	    return pq[1];
+	}
 	//Insert
-	public void insert(Key x){
+	public void insert(T x){
+	 // double size of array if necessary
+        if (N >= pq.length - 1) resize(2 * pq.length);
+        
 		pq[++N]=x;
 		swim(N);				//SWIM UP
 	}
 	
+	private T[] temp;
+	// helper function to double the size of the heap array
+    private void resize(int capacity) {
+        assert capacity > N;
+        temp = (T[])new Comparable[capacity];
+        for (int i = 1; i <= N; i++) temp[i] = pq[i];
+        pq = (T[])temp;
+    }
+	
 	//Delete MAX
-	public Key deleteMax(){
+	public T deleteMax(){
 		if(isEmpty())
 			return null;
 		
-		Key max=pq[1];
+		T max=pq[1];
 		Sort.swap(pq, 1, N);
 		N--;
 		sink(1);				//SINK UP

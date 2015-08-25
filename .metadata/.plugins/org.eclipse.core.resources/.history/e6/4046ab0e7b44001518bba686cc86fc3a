@@ -1,0 +1,19 @@
+package week6;
+
+public class TwoSum {
+    int size ;  //size of array     
+    Node[] a ;  //array of long int
+    
+    //creates and populates array
+    public TwoSum(int size){
+        this.size = size;
+        a = new Node[size];
+        
+        //
+    }
+    
+    private class Node{
+        long data;
+        Node next;      
+    }
+}

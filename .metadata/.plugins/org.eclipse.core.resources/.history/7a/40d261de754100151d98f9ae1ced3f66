@@ -1,0 +1,117 @@
+package week4;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Stack;
+import java.util.StringTokenizer;
+
+import digraph.DepthFirstOrder;
+import digraph.Digraph;
+
+public class KS1 {
+    private boolean[] visited;
+    private int[] id; // means id[u] contains set no. in which u present
+    private int count = 0; // total scc in graph
+
+    public KS1(Digraph G) {
+        visited = new boolean[G.V()];
+        id = new int[G.V()];
+        // get topo order of reverse of given graph
+        DepthFirstOrder dfo = new DepthFirstOrder(G.reverse());
+        Stack<Integer> rdfs = (Stack<Integer>) dfo.reversePost();
+        int v = 0;
+        // run dfs on original graph with the vertices in order
+        while (!rdfs.isEmpty()) {
+            v = rdfs.pop();
+            if (!visited[v]) {
+                dfs(G, v);
+                count++;
+            }
+        }
+    }
+
+    private void dfs(Digraph G, int v) {
+        visited[v] = true;
+        id[v] = count;
+        for (int w : G.adj(v)) {
+            if (!visited[w])
+                dfs(G, w);
+        }
+    }
+
+    /*
+     * Returns true iff given vertices present in same scc.
+     */
+    public boolean isStronglyConnected(int u, int v) {
+        return id[u] == id[v];
+    }
+
+    /*
+     * Returns id[]
+     */
+    public int[] id() {
+        return id;
+    }
+
+    /*
+     * Unit Testing.
+     */
+    public static void main(String[] args) {
+        long startTime = System.nanoTime();
+        // Build a graph
+        String str;
+        StringTokenizer st;
+        FileInputStream fis = null;
+        BufferedReader br = null;
+        Digraph g = null;
+        try {
+            br = new BufferedReader(new FileReader(args[0]));
+            while((str = br.readLine()) != null){
+                st = new StringTokenizer(str);
+                Integer u = Integer.valueOf(st.nextToken());
+                Integer v = Integer.valueOf(st.nextToken());
+                u--;
+                v--;
+                g.addEdge(u, v);
+                System.out.println(u+" "+v);
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        KS1 ks = new KS1(g);
+        System.out.println("count = " + ks.count);
+        int[] sccSize = new int[ks.count + 1];
+        int[] id = ks.id();
+        for (int i = 0; i < id.length; i++) {
+            // System.out.print(id[i] + " ");
+            sccSize[id[i]]++;
+        }
+        System.out.println();
+        Arrays.sort(sccSize);
+
+        int li = sccSize.length - 1;
+        // Print top five scc
+        for (int i = li; i >= 0 && i > li - 5; i--) {
+            System.out.print(sccSize[i] + " ");
+        }
+        
+      //end time
+        System.out.println("elapsed time = "+(System.nanoTime() - startTime)/1000000000);
+    }
+
+    /*
+     * Convert bytes to int.
+     */
+    private static int toInt(byte[] b, int s, int e) {
+        int value = 0;
+        for (int i = s; i < e; i++) {
+            value = value * 10 + b[i] - '0';
+        }
+        return value;
+    }
+}

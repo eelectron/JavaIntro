@@ -1,0 +1,92 @@
+public class Board {
+	private final int N; // dimension of board
+	private int[][] blocks; // represents a NxN board
+
+	public Board(int[][] blocks) {
+		this.N = blocks[0].length;
+		this.blocks = new int[N][N];
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				this.blocks[i][j] = blocks[i][j];
+			}
+		}
+	}
+
+	/*
+	 * @return dimension of board
+	 */
+	public int dimension() {
+		return N;
+	}
+
+	/*
+	 * @return no of blocks out of place.
+	 */
+	public int hamming() {
+
+	}
+
+	/*
+	 * @return sum of manhattan distances between blocks and goal.
+	 */
+	public int manhattan() {
+
+	}
+
+	/*
+	 * @return true if given board is our goal.
+	 */
+	public boolean isGoal(){
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if(blocks[i][j] != getBlockVal(i, j) && getBlockVal(i, j) != N*N)
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	/*
+	 * @return block number which must be present at the specified location(i, j). */
+	private int getBlockVal(int i, int j) {
+		return i*N + j +1;
+	}
+	
+	public boolean equals(Object y){
+		
+		//return true if both pointing to same object
+		if(this == y)		return true;
+		if(y == null)		return false;
+		if (y.getClass() != this.getClass()) return false;
+		
+		Board b = (Board)y;
+		//return false if there dimensions are diff.
+		if(this.N != b.N)	return false;
+		
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if(blocks[i][j] != b.blocks[i][j])
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	public Board twin(){
+		
+	}
+	/*
+	 * @return string representation of this board.
+	 */
+	public String toString() {
+		StringBuilder s = new StringBuilder();
+	    s.append(N + "\n");
+	    for (int i = 0; i < N; i++) {
+	        for (int j = 0; j < N; j++) {
+	            s.append(String.format("%2d ", tiles[i][j]));
+	        }
+	        s.append("\n");
+	    }
+	    return s.toString();
+	}
+}

@@ -1,0 +1,16 @@
+
+public class KdTree {
+    private Node root;      //Root of my binary tree
+    
+    //Denotes node of tree
+    private class Node{
+        //Data of node
+        private Point2D p;
+        
+        //Pointer to left and right node
+        private Node left;
+        private Node right;
+    }
+    
+    
+}

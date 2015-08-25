@@ -1,0 +1,108 @@
+package week6;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
+
+public class TwoSum {
+    long size ;  //size of array     
+    Node[] ht ;  //array of long int
+    boolean[] target = new boolean[20001];
+    
+    //creates and populates array
+    public TwoSum(int size, File file) throws FileNotFoundException{
+        this.size = size;
+        ht = new Node[size];
+        
+        //create and populate array from file
+        Scanner sc = new Scanner(file);
+        long x,i=0;
+        while(sc.hasNext()){
+            x=sc.nextLong();
+            insert(x);
+            System.out.println(i+" "+x);
+            i++;
+        }
+        
+        checkAllTarget();
+    }
+    
+    
+    private class Node{
+        long data;
+        Node next;  
+        Node(long data){
+            this.data = data;
+        }
+    }
+    
+    /*
+     * @return array index for storing x*/
+    int hash(long x){
+        //make x positive if not already
+        if(x<0)
+            x = -1*x;
+        
+        return (int)(x%size);
+    }
+    
+    /*
+     * Inserts a node in HASHTABLE.Skip if already present.*/
+    boolean insert(long x){
+        
+        Node node = new Node(x);
+        int i=hash(x);
+        //if x already present then dont add
+        for (Node j = ht[i]; j != null; j=j.next) {
+            if(j.data == x)
+                return false;
+        }
+        
+        node.next = ht[i];
+        ht[i] = node;
+        return true;
+    }
+    
+    void checkAllTarget(){
+        for (int i = 0; i < target.length; i++) {
+            int t = i - 10000;
+            target[i] = findTwoSum(t);
+        }
+    }
+    
+    /*
+     * @return true if a pair is present whose sum is equal to tgt.*/
+    private boolean findTwoSum(int t) {
+        long x=0,y=0;
+        //loop over hash table
+        for (int i = 0; i < ht.length; i++) {
+            //loop over node list
+            for(Node n=ht[i]; n != null; n = n.next){
+                x=n.data;
+                y=t - x;
+                if(search(y) == true){
+                    System.out.println("for target"+t+"="+x+" "+y);
+                    return true;
+                }    
+            }
+        }
+        return false;
+    }
+
+    public boolean search(long y) {
+        int i=hash(y);
+        for(Node n=ht[i]; n!=null; n = n.next){
+            if(n.data == y)
+                return true;
+        }
+        return false;
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException {
+        File file = new File(args[0]);
+        TwoSum ts = new TwoSum(10000, file);
+        
+    }
+}

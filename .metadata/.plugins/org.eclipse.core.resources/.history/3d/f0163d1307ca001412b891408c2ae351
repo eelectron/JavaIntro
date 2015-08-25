@@ -1,0 +1,117 @@
+import java.util.TreeSet;
+
+import KdTree.Node;
+
+
+public class PointSET {
+    TreeSet<Point2D> points;            //All points are stored in TreeSet(red-black BSt)
+    Point2D origin = new Point2D(0, 0);
+    
+    public PointSET(){
+        //Keep the points sorted acc. to 
+        points = new TreeSet<Point2D>(origin.DISTANCE_TO_ORDER);
+    }
+    
+    // Denotes node of tree
+    private class Node {
+        private Point2D point; // Data of node
+        private boolean evenLevel;  //indicate whether a node is at even(0,2,4) level or odd(1,3,5).
+        private boolean color = RED; // Color of this node
+        
+        private Node left; // Pointer to left and right node
+        private Node right;
+
+        Node(Point2D p, boolean e) {
+            point = p;
+            evenLevel = e;
+        }
+    }
+    
+    /*
+     * @return true if there no points are present in the set.*/
+    public boolean isEmpty(){
+        return points.size() == 0;
+    }
+    
+    public int size(){
+        return points.size();
+    }
+    
+    
+    
+    public void insert(Point2D p){
+        if(!contains(p))
+            points.add(p);
+    }
+    
+    public boolean contains(Point2D p){
+        return points.contains(p);
+    }
+    
+    public void draw(){
+        RectHV rect = new RectHV(0, 0, 1, 1);
+        rect.draw();
+        draw(root, rect);
+    }
+
+    private void draw(Node node, RectHV rect) {
+        if(node  == null)return;
+        
+        //draw point
+        Point2D p = node.point;
+        StdDraw.setPenColor(StdDraw.BLACK);
+        StdDraw.setPenRadius(.01);
+        p.draw();
+        
+        double x = p.x();
+        double y = p.y();
+        //draw line
+        if(node.evenLevel == EVEN){     //draw vertical line
+            StdDraw.setPenColor(StdDraw.RED);
+            StdDraw.setPenRadius();
+            //override xmin,xmax
+            StdDraw.line(x, rect.ymin(), x, rect.ymax());
+            
+            //recursively draw points in left plane
+            RectHV rectLeft = new RectHV(rect.xmin(), rect.ymin(), x, rect.ymax());
+            draw(node.left, rectLeft);
+            
+            //recursively draw points present in right plane
+            RectHV rectRight = new RectHV(x, rect.ymin(), rect.xmax(), rect.ymax());
+            draw(node.right, rectRight);
+        }else{                          //draw horizontal line
+            StdDraw.setPenColor(StdDraw.BLUE);
+            StdDraw.setPenRadius();
+            StdDraw.line(rect.xmin(), y, rect.xmax(), y);
+            
+            //draw points in bottom plane
+            RectHV rectBottom = new RectHV(rect.xmin(), rect.ymin(), rect.xmax(), y);
+            draw(node.left, rectBottom);
+            
+            //draw points in top plane
+            RectHV rectTop = new RectHV(rect.xmin(), y, rect.xmax(), rect.ymax());
+            draw(node.right, rectTop);
+        }
+    }
+    
+    public Iterable<Point2D> range(RectHV rect){
+        Point2D p1 = new Point2D(rect.xmin(), rect.ymin());
+        Point2D p2 = new Point2D(rect.xmax(), rect.ymax());
+        
+        //return all the point inside rectangle
+        return points.subSet(p1, p2);
+    }
+    
+    public Point2D nearest(Point2D p){
+        Point2D nearestPoint = points.first();
+        double minDist = p.distanceSquaredTo(nearestPoint);
+        
+        for(Point2D x: points){
+            if(x.distanceSquaredTo(p) < minDist){
+                minDist = x.distanceSquaredTo(p);
+                nearestPoint = x;
+            }
+        }
+        return nearestPoint;
+    }
+}

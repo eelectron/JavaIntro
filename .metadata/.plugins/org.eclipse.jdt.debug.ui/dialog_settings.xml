@@ -4,7 +4,7 @@
 	<item value="/home/prashant/Documents/CSECourses/2.DATA_STRUCTURE/AlgorithmsPart-IbySedgewick" key="JavaClasspathTab.LAST_PATH_SETTING"/>
 	<item value="1" key="org.eclipse.jdt.debug.ui.jre_preference_page_context.sortColumn"/>
 	<item value="223" key="org.eclipse.jdt.debug.ui.jre_preference_page_context.columnWidth1"/>
-	<item value="429" key="org.eclipse.jdt.debug.ui.jre_preference_page_context.columnWidth2"/>
+	<item value="451" key="org.eclipse.jdt.debug.ui.jre_preference_page_context.columnWidth2"/>
 	<section name="org.eclipse.jdt.debug.ui.MAIN_METHOD_SELECTION_DIALOG">
 		<item value="true" key="ShowStatusLine"/>
 		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0A;&lt;History&gt;&#x0A;&lt;historyRootNode&gt;&#x0A;&lt;infoNode&gt;=HeadFirstJava/src&amp;lt;animal{Computer.java[Computer&lt;/infoNode&gt;&#x0A;&lt;infoNode&gt;=Algorithms-II/src&amp;lt;graph{GraphClient.java[GraphClient&lt;/infoNode&gt;&#x0A;&lt;infoNode&gt;=SimpleWebsite/\/usr\/share\/java\/hsqldb.jar&amp;lt;org.hsqldb.util(DatabaseManager.class[DatabaseManager&lt;/infoNode&gt;&#x0A;&lt;infoNode&gt;=SimpleWebsite/\/usr\/share\/java\/hsqldb.jar&amp;lt;org.hsqldb(Server.class[Server&lt;/infoNode&gt;&#x0A;&lt;infoNode&gt;=SimpleWebsite/\/usr\/share\/java\/hsqldb.jar&amp;lt;org.hsqldb.util(DatabaseManagerSwing.class[DatabaseManagerSwing&lt;/infoNode&gt;&#x0A;&lt;infoNode&gt;=Algorithms-I/src&amp;lt;{Subset.java[Subset&lt;/infoNode&gt;&#x0A;&lt;/historyRootNode&gt;&#x0A;&lt;/History&gt;" key="History"/>
@@ -17,9 +17,9 @@
 		</section>
 	</section>
 	<section name="org.eclipse.jdt.internal.debug.ui.ExpressionInformationControlCreator$ExpressionInformationControl">
-		<item value="200" key="SashWeightDetails"/>
-		<item value="200" key="SashWeightTree"/>
-		<item value="204" key="HEIGHT"/>
-		<item value="700" key="WIDTH"/>
+		<item value="500" key="SashWeightDetails"/>
+		<item value="500" key="SashWeightTree"/>
+		<item value="202" key="HEIGHT"/>
+		<item value="698" key="WIDTH"/>
 	</section>
 </section>

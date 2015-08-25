@@ -1,0 +1,47 @@
+package week2;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class CountComparisonQS {
+    int[] a;
+    int c;      //no. of comparisons in quick sort
+    
+    /*
+     * Reads integer from file and put them in array.*/
+    void readInput(File file, int n){
+        try {
+            //create array
+            a = new int[n];
+            Scanner s = new Scanner(file);
+            
+            //populate array
+            for (int i = 0; i < n; i++) {
+                a[i] = s.nextInt();
+            }
+            
+        } catch (FileNotFoundException e) {
+            System.err.println("File not Found!");
+        }
+    }
+    
+    void quicksort(int[] a1, int lo, int hi){
+        if(lo >= hi)return;
+        c = c + hi - lo;    //count comparisons
+        int j = partition(a1, lo, hi);
+        quicksort(a1, lo, j-1);
+        quicksort(a1, j+1, hi);
+    }
+
+    private int partition(int[] a1, int lo, int hi) {
+        //pivot
+        int pivot = a1[lo];
+        int i=lo,j=hi+1;
+        while(true){
+            while()
+        }
+        
+        return 0;
+    }
+}

@@ -194,7 +194,7 @@ public class KargerMinCut {
     public static void main(String[] args) {
         //get the file
         File file = new File(args[0]);
-        Scanner sc = null;
+        Scanner sc = null,scl = null;
         try {
             sc = new Scanner(file);
         } catch (FileNotFoundException e) {
@@ -207,15 +207,18 @@ public class KargerMinCut {
         //create empty graph
         Graph g = new Graph(v);
         
+        int u=0;
+        String s = null;
+        
         //read edges from text and add edges to graph
         while(sc.hasNextLine()){
             //scan a line
-            String s = sc.nextLine();
+            s = sc.nextLine();
             System.out.println(s);
             //process the line
-            Scanner scl = new Scanner(s);
+            scl = new Scanner(s);
             //scan vertex
-            int u = scl.nextInt();
+            u = scl.nextInt();
             u--;
             while(scl.hasNext()){
                 v = scl.nextInt();

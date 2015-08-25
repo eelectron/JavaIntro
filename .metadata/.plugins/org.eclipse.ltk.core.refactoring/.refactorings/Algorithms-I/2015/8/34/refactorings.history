@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type variable &apos;Key&apos; of &apos;priorityQueue.MaxPQ&apos; to &apos;T&apos;&#x0A;- Original project: &apos;Algorithms-I&apos;&#x0A;- Original element: &apos;Key extends Comparable&lt;Key&gt;&apos;&#x0A;- Renamed element: &apos;T&apos;&#x0A;- Update references to refactored element" description="Rename type variable &apos;Key&apos;" id="org.eclipse.jdt.ui.rename.type.parameter" input="/src&lt;priorityQueue{MaxPQ.java[MaxPQ" name="T" parameter="Key" references="true" stamp="1439883576953" version="1.0"/>
+</session>

@@ -1,0 +1,6 @@
+
+public class PointSET {
+    public boolean isEmpty(){
+        
+    }
+}

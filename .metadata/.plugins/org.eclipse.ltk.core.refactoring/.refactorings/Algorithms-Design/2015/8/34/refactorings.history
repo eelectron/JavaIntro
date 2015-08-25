@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;index&apos; in &apos;week6.TwoSum.insert(...)&apos; to &apos;i&apos;&#x0A;- Original project: &apos;Algorithms-Design&apos;&#x0A;- Original element: &apos;week6.TwoSum.insert(long).index&apos;&#x0A;- Renamed element: &apos;index&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;index&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;week6{TwoSum.java[TwoSum~insert~J@index!1033!1050!1037!1041!I!0!false" name="i" references="true" stamp="1439780502984" version="1.0"/>
+</session>

@@ -1,0 +1,79 @@
+package week5;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+import priorityQueue.MinPQ;
+import shortestPath.EdgeWeightedDigraph;
+import mst.DirectedEdge;
+
+public class DijkstraSP {
+    private DirectedEdge[]      edgeTo;      //last edge to vertices
+    private double[]            distTo;      //shortest dist of vertices from src
+    private MinPQ<DirectedEdge> pq;
+    
+    public DijkstraSP(EdgeWeightedDigraph G, int s){
+        //initialization
+        edgeTo = new DirectedEdge[G.getV()];
+        distTo = new double[G.getV()];
+        pq   = new MinPQ<DirectedEdge>(G.getV());
+        
+        
+        for (int v = 0; v < G.getV(); v++) {
+            distTo[v] = Double.MAX_VALUE;
+        }
+        distTo[s] = 0;
+        pq.insert(new DirectedEdge(0, 0, 0));
+        while(!pq.isEmpty()) {
+            DirectedEdge se=pq.deleteMin();
+            int v=se.to();
+            for(DirectedEdge e: G.getAdj(v)){
+                relax(e);
+            }
+        }
+    }
+
+    private void relax(DirectedEdge e) {
+        int v = e.to();
+        int u = e.from();
+        
+        if(distTo[v] > distTo[u] + e.weight()){
+            distTo[v] = distTo[u] + e.weight();
+            edgeTo[v] = e;
+            pq.insert(e);
+        }
+        
+    }
+    
+    public double distTo(int v){
+        return distTo[v];
+    }
+    
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(args[0]));
+        String str;
+        str=br.readLine();
+        int v=Integer.valueOf(str);
+        EdgeWeightedDigraph G=new EdgeWeightedDigraph(v);
+        
+        Scanner sc;
+        int u,weight;
+        //make graph
+        while((str=br.readLine())!=null){
+            sc = new Scanner(str);
+            u = sc.nextInt();
+            v = sc.nextInt();
+            weight = sc.nextInt();
+            
+            DirectedEdge e = new DirectedEdge(u, v, weight);
+            G.addEdge(e);
+        }
+        
+        //SP
+        DijkstraSP dik = new DijkstraSP(G, 0);
+        
+    }
+}

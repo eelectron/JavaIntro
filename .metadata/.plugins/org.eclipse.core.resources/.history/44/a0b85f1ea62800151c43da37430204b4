@@ -1,0 +1,9 @@
+package week1;
+/*
+ * Find the largest contiguous subarray whose sum is maximum.*/
+public class MaxSubarray {
+    
+    void divide(int[] a, int low, int high){
+        
+    }
+}

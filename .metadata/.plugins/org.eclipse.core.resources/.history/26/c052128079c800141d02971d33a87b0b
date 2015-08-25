@@ -1,0 +1,36 @@
+
+public class KdTree {
+    private static final boolean RED = true;
+    private static final boolean BLACK = true;
+    private Node root;      //Root of my binary tree
+    
+    //Denotes node of tree
+    private class Node{
+        //Data of node
+        private Point2D point;
+        
+        //Pointer to left and right node
+        private Node left;
+        private Node right;
+        
+        //Numbers of node rooted at this node
+        private int count;
+        
+        //Color of this node
+        private boolean color;
+        
+        Node(Point2D p, boolean c){
+            point = p;
+            color = c;
+        }
+    }
+    
+    public boolean isEmpty(){
+        return root == null;
+    }
+    
+    public int size(){
+        if(root == null)    return 0;
+        else                return root.count;
+    }
+}

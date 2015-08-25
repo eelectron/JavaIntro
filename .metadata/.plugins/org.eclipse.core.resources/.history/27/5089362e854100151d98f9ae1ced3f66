@@ -1,0 +1,32 @@
+package week5;
+
+import priorityQueue.MinPQ;
+import shortestPath.EdgeWeightedDigraph;
+import mst.DirectedEdge;
+
+public class DijkstraSP {
+    private DirectedEdge[]      edgeTo;      //last edge to vertices
+    private double[]            distTo;      //shortest dist of vertices from src
+    private MinPQ<DirectedEdge> pq;
+    
+    public DijkstraSP(EdgeWeightedDigraph G, int s){
+        //initialization
+        edgeTo = new DirectedEdge[G.getV()];
+        distTo = new double[G.getV()];
+        pq   = new MinPQ<DirectedEdge>(G.getV());
+        
+        
+        for (int v = 0; v < G.getV(); v++) {
+            distTo[v] = Double.MAX_VALUE;
+        }
+        distTo[s] = 0;
+        pq.insert(new DirectedEdge(0, 0, 0));
+        while(!pq.isEmpty()) {
+            DirectedEdge e=pq.deleteMin();
+            int v=e.to();
+            for(DirectedEdge e: G.getAdj(v)){
+                relax(e);
+            }
+        }
+    }
+}

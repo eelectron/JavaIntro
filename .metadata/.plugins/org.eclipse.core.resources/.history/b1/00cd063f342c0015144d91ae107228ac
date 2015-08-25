@@ -1,0 +1,12 @@
+package week2;
+
+import java.io.File;
+
+public class CountComparisonQS {
+    int[] a;
+    int c;      //no. of comparisons in quick sort
+    
+    void readInput(File file){
+        Scanner s = new Scanner(file);
+    }
+}

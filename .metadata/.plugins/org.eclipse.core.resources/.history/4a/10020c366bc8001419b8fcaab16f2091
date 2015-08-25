@@ -1,0 +1,9 @@
+
+public class KdTree {
+    private Node root;      //Root of my binary tree
+    
+    //Denotes node of tree
+    private class Node{
+        
+    }
+}

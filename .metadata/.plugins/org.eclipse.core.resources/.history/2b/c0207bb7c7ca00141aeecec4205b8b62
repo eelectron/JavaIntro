@@ -1,0 +1,296 @@
+
+
+public class KdTree {
+    private static final boolean RED = true;
+    private static final boolean BLACK = false;
+
+    private static final boolean EVEN = true;
+    private static final boolean ODD = false;
+
+    private Node root; // Root of my binary tree
+    private int size; // total nodes in tree
+    
+    Point2D nearestPoint = null;    
+    double minDist = Double.MAX_VALUE; // initially distance is very large
+    
+    // Denotes node of tree
+    private class Node {
+        private Point2D point; // Data of node
+        private boolean evenLevel; // indicate whether a node is at even(0,2,4)
+                                   // level or odd(1,3,5).
+        private RectHV rect;
+        private boolean color = BLACK; // Color of this node
+
+        private Node left; // Pointer to left node
+        private Node right;
+
+        Node(Point2D p, boolean e, RectHV r) {
+            point = p;
+            evenLevel = e;
+            rect = r;
+        }
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    // ***************************************Inserting a
+    // NODe************************************
+    public void insert(Point2D p) {
+        // put the point in tree with the info about its Evenness and
+        // in which rectangle(plane) it lies
+        RectHV rect = new RectHV(0, 0, 1, 1);
+        root = put(root, p, EVEN, rect);
+    }
+
+    private Node put(Node h, Point2D p, boolean e, RectHV r) {
+        // Insert the node
+        if (h == null) {
+            size++; // increment size of tree by one
+            return new Node(p, e, r);
+        }
+
+        // DON'T insert duplicate points
+        if (p.equals(h.point))
+            return null;
+
+        int cmp;
+        // point in tree
+        double x = h.point.x();
+        double y = h.point.y();
+
+        if (h.evenLevel == EVEN) {
+            cmp = Point2D.X_ORDER.compare(p, h.point);
+            if (cmp < 0) {
+                RectHV rectLeft = new RectHV(r.xmin(), r.ymin(), x, r.ymax());
+                h.left = put(h.left, p, ODD, rectLeft);
+            } else {
+                RectHV rectRight = new RectHV(x, r.ymin(), r.xmax(), r.ymax());
+                h.right = put(h.right, p, ODD, rectRight);
+            }
+        } else {
+            cmp = Point2D.Y_ORDER.compare(p, h.point);
+            if (cmp < 0) {
+                RectHV rectBottom = new RectHV(r.xmin(), r.ymin(), r.xmax(), y);
+                h.left = put(h.left, p, EVEN, rectBottom);
+            } else {
+                RectHV rectTop = new RectHV(r.xmin(), y, r.xmax(), r.ymax());
+                h.right = put(h.right, p, EVEN, rectTop);
+            }
+        }
+
+        // Rotate if satisfies below condition
+        if (!isRed(h.left) && isRed(h.right))
+            h = rotateLeft(h);
+        else if (isRed(h.left) && isRed(h.left.left))
+            h = rotateRight(h);
+        else if (isRed(h.left) && isRed(h.right))
+            flipColors(h);
+        return h;
+    }
+
+    // Checks for redness of a node
+    private boolean isRed(Node x) {
+        if (x == null)
+            return false;
+        return x.color == RED;
+    }
+
+    // Perform left rotation
+    private Node rotateLeft(Node currentNode) {
+        assert (isRed(currentNode.right));
+
+        Node newNode = currentNode.right;
+        currentNode.right = newNode.left;
+        newNode.left = currentNode;
+        newNode.color = currentNode.color;
+        currentNode.color = RED;
+        return newNode;
+    }
+
+    // Perform right rotation
+    private Node rotateRight(Node currentNode) {
+        assert (isRed(currentNode.left));
+
+        Node newNode = currentNode.left;
+        currentNode.left = newNode.right;
+        newNode.right = currentNode;
+        newNode.color = currentNode.color;
+        currentNode.color = RED;
+        return newNode;
+    }
+
+    private void flipColors(Node h) {
+        assert (!isRed(h));
+        assert (isRed(h.left));
+        assert (isRed(h.right));
+
+        h.color = RED;
+        h.left.color = BLACK;
+        h.right.color = BLACK;
+    }
+
+    // *****************************************************************************************************
+    public boolean contains(Point2D p) {
+        Node curNode = root;
+        int cmp;
+        while (curNode != null) {
+            if (curNode.evenLevel == EVEN)
+                cmp = Point2D.X_ORDER.compare(p, curNode.point);
+            else
+                cmp = Point2D.Y_ORDER.compare(p, curNode.point);
+
+            if (cmp < 0)
+                curNode = curNode.left;
+            else if (cmp > 0)
+                curNode = curNode.right;
+            else if (p.equals(curNode.point)) // FOUND :)
+                return true;
+            else if (cmp == 0 && !p.equals(curNode.point)) // means our point
+                                                           // 'p' lies on same
+                                                           // vertical or
+                                                           // horizontal
+                curNode = curNode.right; // which passes through current point !
+        }
+        return false;
+    }
+
+    public void draw() {
+        RectHV rect = new RectHV(0, 0, 1, 1);
+        rect.draw();
+        draw(root);
+    }
+
+    private void draw(Node node) {
+        if (node == null)
+            return;
+
+        // draw point
+        Point2D p = node.point;
+        StdDraw.setPenColor(StdDraw.BLACK);
+        StdDraw.setPenRadius(.01);
+        p.draw();
+
+        double x = p.x();
+        double y = p.y();
+        // draw line
+        if (node.evenLevel == EVEN) { // draw vertical line
+            StdDraw.setPenColor(StdDraw.RED);
+            StdDraw.setPenRadius();
+            // override xmin,xmax
+            StdDraw.line(x, node.rect.ymin(), x, node.rect.ymax());
+        } else { // draw horizontal line
+            StdDraw.setPenColor(StdDraw.BLUE);
+            StdDraw.setPenRadius();
+            StdDraw.line(node.rect.xmin(), y, node.rect.xmax(), y);
+        }
+
+        draw(node.left);
+        draw(node.right);
+    }
+
+    public Iterable<Point2D> range(RectHV rect) {
+        Queue<Point2D> queue = new Queue<Point2D>();
+        range(rect, root, queue);
+        return queue;
+    }
+
+    private void range(RectHV rect, Node node, Queue<Point2D> queue) {
+        // Base case
+        if (node == null)
+            return;
+
+        if (rect.intersects(node.rect)) {
+            if (rect.contains(node.point)) {
+                queue.enqueue(node.point); // add point to queue if its
+                                           // contained in rectangle
+            }
+            range(rect, node.left, queue);
+            range(rect, node.right, queue);
+        }
+    }
+
+    public Point2D nearest(Point2D queryPoint) {
+        nearest(queryPoint, root, nearestPoint, minDist);
+        return nearestPoint;
+    }
+
+    private void nearest(Point2D qp, Node node, Point2D np, double minDist) {
+        //Base case
+        if(node == null)return;
+        
+        if(node.rect.contains(qp) || minDistance(qp, node) < minDist){
+            double dis = qp.distanceSquaredTo(node.point);  //find dist bw qp and np
+            if(dis < minDist){
+                np = node.point;    //new nearest point
+                minDist = dis;      //new min distance between query point and nearest point
+            }
+        //find nearest point in children node
+        nearest(qp, node.left, np, minDist);
+        nearest(qp, node.right, np, minDist);
+        }
+    }
+    
+    //Minimum distance between a point and a given rectangle
+    //Here node represent a rectangle
+    private double minDistance(Point2D qp, Node node) {
+        RectHV rect = node.rect;
+        double d = 0; 
+        
+        //qp in left 
+        if(qp.x() < rect.xmin() ){
+            if(qp.y() < rect.ymin())
+                d = qp.distanceSquaredTo(new Point2D(rect.xmin(), rect.ymin()));
+            else if(qp.y() > rect.ymax())
+                d = qp.distanceSquaredTo(new Point2D(rect.xmin(), rect.ymax()));
+            else
+                d = qp.distanceSquaredTo(new Point2D(rect.xmin(), qp.y()));
+        }
+        else if(qp.x() > rect.xmax()){          //qp in right
+            if(qp.y() < rect.ymin())
+                d = qp.distanceSquaredTo(new Point2D(rect.xmax(), rect.ymin()));
+            else if(qp.y() > rect.ymax())
+                d = qp.distanceSquaredTo(new Point2D(rect.xmax(), rect.ymax()));
+            else
+                d = qp.distanceSquaredTo(new Point2D(rect.xmax(), qp.y()));
+        }
+        else if(qp.y() < rect.ymin()){      //qp in bottom
+            d = qp.distanceSquaredTo(new Point2D(qp.x(), rect.ymin()));
+        }
+        else
+            d = qp.distanceSquaredTo(new Point2D(qp.x(), rect.ymax()));
+        
+        //finally return the min distance
+        return d;
+    }
+
+    public static void main(String[] args) {
+        String filename = args[0];
+        In in = new In(filename);
+
+        StdDraw.show(0);
+        // initialize the data structures with N points from standard input
+        // PointSET brute = new PointSET();
+        KdTree kdtree = new KdTree();
+        while (!in.isEmpty()) {
+            double x = in.readDouble();
+            double y = in.readDouble();
+            Point2D p = new Point2D(x, y);
+            kdtree.insert(p);
+            // brute.insert(p);
+        }
+
+        // draw the points
+        StdDraw.clear();
+        StdDraw.setPenColor(StdDraw.BLACK);
+        StdDraw.setPenRadius(.01);
+        kdtree.draw();
+
+        StdDraw.show(1000);
+    }
+}

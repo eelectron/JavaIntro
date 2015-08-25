@@ -1,0 +1,53 @@
+import java.util.TreeSet;
+
+public class PointSET {
+    Point2D origin = new Point2D(0, 0);
+    TreeSet<Point2D> points = new TreeSet<Point2D>(origin.DISTANCE_TO_ORDER); //All points are stored in TreeSet(red-black BSt)
+    
+    /*
+     * @return true if there no points are present in the set.*/
+    public boolean isEmpty(){
+        return points.size() == 0;
+    }
+    
+    public int size(){
+        return points.size();
+    }
+    
+    public void insert(Point2D p){
+        points.add(p);
+    }
+    
+    public boolean contains(Point2D p){
+        return points.contains(p);
+    }
+    
+    public void draw(){
+        for(Point2D p: points)
+            p.draw();
+    }
+
+    
+    public Iterable<Point2D> range(RectHV rect){
+       Queue<Point2D> q = new Queue<Point2D>();
+       for(Point2D p: points){
+           if(rect.contains(p))
+               q.enqueue(p);
+       } 
+        //return all the point inside the rectangle
+        return q;
+    }
+    
+    public Point2D nearest(Point2D queryPoint){
+        Point2D nearestPoint = points.first();
+        double minDist = queryPoint.distanceSquaredTo(points.first());
+        
+        for(Point2D x: points){
+            if(x.distanceSquaredTo(queryPoint) < minDist){
+                minDist = x.distanceSquaredTo(queryPoint);
+                nearestPoint = x;
+            }
+        }
+        return nearestPoint;
+    }
+}

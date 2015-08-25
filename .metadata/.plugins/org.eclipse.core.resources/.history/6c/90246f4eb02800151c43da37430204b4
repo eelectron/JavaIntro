@@ -1,0 +1,34 @@
+package week1;
+/*
+ * Find the largest contiguous subarray whose sum is maximum.*/
+public class MaxSubarray {
+    
+    void divide(int[] a, int low, int high){
+        if(low == high)
+            return;
+        
+        //divide array
+        int mid = (low+high)/2;
+        divide(a, low, mid);
+        divide(a, mid+1, high);
+        
+        int leftSum = a[low];
+        int rightSum = a[high];
+        int crossSum = findMaxCrossSum(a, low, mid, high);
+    }
+    
+    //Find max cross sum
+    int findMaxCrossSum(int[] a, int low, int mid, int high){
+        int leftSum = Integer.MIN_VALUE;
+        int sum = 0;
+        int maxLeft;
+        //calculate 
+        for (int i = mid; i >= low; i--) {
+            sum += a[i];
+            if(sum > leftSum){
+                leftSum = sum;
+                maxLeft = i;
+            }
+        }
+    }
+}

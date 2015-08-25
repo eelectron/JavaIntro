@@ -1,0 +1,40 @@
+import java.util.Iterator;
+import java.util.TreeSet;
+
+
+public class PointSET {
+    TreeSet<Point2D> points = new TreeSet<Point2D>();
+    
+    public PointSET(){
+        
+    }
+    
+    /*
+     * @return true if there no points are present in the set.*/
+    public boolean isEmpty(){
+        return points.size() == 0;
+    }
+    
+    public int size(){
+        return points.size();
+    }
+    
+    public boolean contains(Point2D p){
+        return points.contains(p);
+    }
+    
+    public void insert(Point2D p){
+        if(!contains(p))
+            points.add(p);
+    }
+    
+    public void draw(){
+        for(Point2D p: points){
+            p.draw();
+        }
+    }
+    
+    public Iterable<Point2D> range(RectHV rect){
+        
+    }
+}

@@ -1,0 +1,4 @@
+
+public class Deque<Item> impelemnts Iterable<Item>{
+
+}

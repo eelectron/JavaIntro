@@ -1,0 +1,81 @@
+
+public class Percolation {
+	private int N;
+	private boolean PERCOLATE;
+	WeightedQuickUnionUF wqu;
+	
+	int[][] grid;	//keep track open site
+	
+	public Percolation(int N){		//create a N-by-N grid ,with all sites block
+		this.N = N;
+		
+		wqu = new WeightedQuickUnionUF(N*N);
+		
+		grid = new int[N][N];
+		for(int i=0; i<N; i++){
+			for(int j=0; j<N; j++){
+				grid[i][j] = -1;
+			}
+		}
+	}
+	
+	//Opens site if not already open
+	public void open(int i, int j){
+		i -= 1;
+		j -= 1;
+		if(!isOpen1(i, j)){
+			grid[i][j] = i*N + j;		//opens a site
+			int site = i*N+j;
+			//Unite newly open site with open adjacent site
+			
+			if(j > 0 && isValidIndex(i, j-1) && isOpen1(i, j-1))		//left
+				wqu.union(site, i*N+j-1 );
+			if(j < N-1 && isValidIndex(i, j+1) && isOpen1(i, j+1))		//right
+				wqu.union(site, i*N+j+1 );
+			if(i < N-1 && isValidIndex(i+1, j) && isOpen1(i+1, j))		//below
+				wqu.union(site, (i+1)*N+j );
+			if(i > 0 && isValidIndex(i-1, j) && isOpen1(i-1, j))		//above
+				wqu.union(site, (i-1)*N + j );
+		}		
+	}
+	
+	//Checks whether a site is open or not
+	public boolean isOpen(int i, int j){
+		--i;
+		--j;
+		return grid[i][j] != -1;	
+	}
+	
+	//Checks whether a site is open or not
+	private boolean isOpen1(int i, int j){
+		return grid[i][j] != -1;	
+	}
+	
+	//If the site is connected from surface the it means its fill with water
+	public boolean isFull(int i, int j){
+		--i;
+		--j;
+		boolean isFull=false;
+		int site1 = i*N+j;
+		for (int k = 0; k < N; k++) {
+			//if site1 is connected to any of open site at top
+			if(isOpen1(i, j) && wqu.connected(site1, k)){
+				isFull = true;
+				break;
+			}
+		}
+		return isFull;
+	}
+	
+	public boolean percolates(){
+		for (int i = 0; i < N; i++) {
+			if(isOpen1(N-1, i) && wqu.connected((N-1)*N+i, i));
+		}
+	}
+	
+	//Validates index
+	private boolean isValidIndex(int i, int j){
+		if (i < 0 || i >= N || j < 0 || j >= N) throw new IndexOutOfBoundsException("Your index  out of bounds!!");
+		return true;
+	}
+}

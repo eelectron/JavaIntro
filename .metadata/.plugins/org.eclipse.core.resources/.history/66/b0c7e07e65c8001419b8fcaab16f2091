@@ -1,0 +1,57 @@
+import java.util.TreeSet;
+
+
+public class PointSET<Point2D extends Comparable> {
+    TreeSet<Point2D> points;
+    Point2D origin = new Point2D(0, 0);
+    
+    public PointSET(){
+        //Keep the points sorted acc. to 
+        points = new TreeSet<Point2D>(origin.DISTANCE_TO_ORDER);
+    }
+    
+    /*
+     * @return true if there no points are present in the set.*/
+    public boolean isEmpty(){
+        return points.size() == 0;
+    }
+    
+    public int size(){
+        return points.size();
+    }
+    
+    public boolean contains(Point2D p){
+        return points.contains(p);
+    }
+    
+    public void insert(Point2D p){
+        if(!contains(p))
+            points.add(p);
+    }
+    
+    public void draw(){
+        for(Point2D p: points){
+            p.draw();
+        }
+    }
+    
+    public Iterable<Point2D> range(RectHV rect){
+        Point2D p1 = new Point2D(rect.xmin(), rect.ymin());
+        Point2D p2 = new Point2D(rect.xmax(), rect.ymax());
+        
+        return points.subSet(p1, p2);
+    }
+    
+    public Point2D nearest(Point2D p){
+        Point2D nearestPoint = points.first();
+        double minDist = p.distanceSquaredTo(nearestPoint);
+        
+        for(Point2D x: points){
+            if(x.distanceSquaredTo(p) < minDist){
+                minDist = x.distanceSquaredTo(p);
+                nearestPoint = x;
+            }
+        }
+        return nearestPoint;
+    }
+}

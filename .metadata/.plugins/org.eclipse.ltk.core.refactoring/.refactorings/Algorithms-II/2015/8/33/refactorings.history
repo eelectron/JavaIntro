@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;otherEdge&apos; in &apos;mst.DirectedEdge.compareTo(...)&apos; to &apos;e&apos;&#x0A;- Original project: &apos;Algorithms-II&apos;&#x0A;- Original element: &apos;mst.DirectedEdge.compareTo(DirectedEdge).otherEdge&apos;&#x0A;- Renamed element: &apos;otherEdge&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;otherEdge&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;mst{DirectedEdge.java[DirectedEdge~compareTo~QDirectedEdge;@otherEdge!529!550!542!550!QDirectedEdge;!0!true" name="e" references="true" stamp="1439443355417" version="1.0"/>
+</session>

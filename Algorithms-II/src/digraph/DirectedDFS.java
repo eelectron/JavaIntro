@@ -6,7 +6,7 @@ public class DirectedDFS {
 	private boolean[] visited;		//for keeping track which vertex is visited and which is not
 	
 	public DirectedDFS(Digraph g, int s){ 	//START by taking a graph "g" and a source vertex s
-		visited =new boolean[g.getV()];
+		visited =new boolean[g.V()];
 		dfs(g,s);
 	}
 

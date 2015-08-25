@@ -1,0 +1,13 @@
+import java.util.TreeSet;
+
+
+public class PointSET {
+    TreeSet points = new TreeSet<Point2D>();
+    
+    public PointSET(){
+        
+    }
+    public boolean isEmpty(){
+        
+    }
+}

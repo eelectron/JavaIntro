@@ -1,15 +1,15 @@
 package graph;
 
 public class CC {
-	private boolean[] visited;	//initialize with size equal to NO. OF VERTICES in Graph 
-	private int[] id;			
-	private int count=0;
-	int vertexCount ;
+	private boolean[]  visited;	//initialize with size equal to NO. OF VERTICES in Graph 
+	private int[]      id;			
+	private int        count=0;
+	int                V ;
 	public CC(Graph G){
-		vertexCount = G.getVertexCount();
-		visited = new boolean[vertexCount];
-		id = new int[vertexCount];
-		for (int v = 0; v < vertexCount; v++) {
+		V = G.V();
+		visited = new boolean[V];
+		id = new int[V];
+		for (int v = 0; v < V; v++) {
 			//run dfs on each vertex if not previously visited
 			if(!visited[v]){
 				dfs(G,v);

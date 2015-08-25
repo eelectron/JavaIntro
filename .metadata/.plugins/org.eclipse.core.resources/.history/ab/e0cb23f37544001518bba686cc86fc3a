@@ -1,0 +1,8 @@
+package week6;
+
+public class TwoSum {
+    int size = 1000000;
+    long[] a = new long[size];
+    
+    
+}

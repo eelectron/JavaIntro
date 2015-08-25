@@ -1,0 +1,59 @@
+
+public class PercolationStats {
+	private Percolation perc ;
+	private int N,T,opened;
+	private double[] expvalue;
+	private double mean,stddev;
+	public PercolationStats(int N, int T){		//perform T independent experiment on an N-by-N grid
+		this.N = N;
+		this.T = T;
+		expvalue = new double[T];
+		exp();
+	}
+	
+	public double mean(){
+		mean=StdStats.mean(expvalue);
+		return mean;
+	}
+	
+	public double stddev(){
+		stddev=StdStats.stddev(expvalue);
+		return stddev;
+	}
+	public double confidenceLo(){
+		return (mean - (1.96*stddev)/Math.sqrt(T));
+	}
+	public double confidenceHi(){
+		return  (mean + (1.96*stddev)/Math.sqrt(T));
+	}
+	
+	private void exp(){
+		int i,j;
+		for (int k = 0; k < T; k++) {
+			opened=0;
+			perc = new Percolation(N);				//N-by-N percolation system model
+			//Run loop until the system percolates
+			while(!perc.percolates()){
+				x=(int)(N*N*StdRandom.uniform());
+				i = x/N + 1;
+				j=x%N + 1;
+				perc.open(i, j);
+				opened++;
+			}
+			expvalue[k] =  (double)opened/(N*N);							//no. of sites opened until system percolates
+			StdOut.println(opened);
+		}
+	}
+	
+	//Test client
+	public static void main(String[] args) {
+		StdOut.println("Enter grid size and no. exp:");
+		int N = StdIn.readInt();
+		int T = StdIn.readInt();
+		PercolationStats ps = new PercolationStats(N, T);
+		
+		StdOut.println("mean									="+ps.mean());
+		StdOut.println("stddev									="+ps.stddev());
+		StdOut.println("95% confidence interval					="+ps.confidenceLo()+", "+ps.confidenceHi());
+	}
+}
